@@ -43,14 +43,14 @@ module.exports = {
   },
   methods: {
     createLabels() {
-      return _.uniq(this.data.map(d => d[0].replace(/_/g, ' ')))
+      return _.uniq(this.data.map(d => format(d[0])))
     },
     createDatasets() {
       const stacks = _.uniq(this.data.map(d => d[1]))
       const colors = shuffle(window.colors)
       return stacks.map((stack, i) => {
         return {
-          label: stack,
+          label: format(stack),
           data: this.data.filter(d => d[1] === stack).map(d => d[2]),
           backgroundColor: hexToRgbA(colors[i], 0.8),
           borderColor: hexToRgbA(colors[i], 1),

@@ -31,7 +31,7 @@
     <div class="subpage">
       <!-- Navigation Bar -->
       <nav class="level">
-        <a href="#" class="level-item tab">Crops</a>
+        <a href="#" class="level-item tab first">Crops</a>
         <a href="#" class="level-item tab">Herds</a>
         <a href="#" class="level-item tab">Feed</a>
         <a href="#" class="level-item tab">Economics</a>
@@ -49,17 +49,22 @@
         <!-- Summary Graphs -->
         <pie class="column is-half" id="pie" title="Crop Shares" :data="crops"></pie>
         <stackedbar class="column is-half" id="pie2" title="Dry Matter Production Table" :data="dryMatter"></stackedbar>
-        <!-- Sum Herds, tabelle -->
-        <!-- Sold output quantity, tabelle-->
+      </div>
+      <div class="columns">
+          <!-- Sum Herds, tabelle -->
+          <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant"></fdtable>
+      </div>
         <!-- Feed, stacked bar per herd -->
         <!-- LU, tabelle-->
         <!-- Fertilisation table, stacked bar per crop -->
         <!-- Autonomy parameters - radial gauge-->
-        <!-- Economics table -->
+      <fdtable title="Economics Output" :is-econ="true" :data="profitFct" ></fdtable>
         <!-- Environment, bar -->
         <!-- Social - stacked lines -->
         <!-- Calories - stacked lines -->
-      </div>
+      
+      
+      
     </div>
   </div>
   <script src="src/index.js"></script>
@@ -131,7 +136,7 @@
     padding-left: 30px;
     padding-right: 60px;
     padding: 2px 5px;
-    margin-top: 10px;
+    margin-top: 30px;
     margin-bottom: 10px;
   }
 </style>

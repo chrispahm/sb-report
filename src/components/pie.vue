@@ -24,14 +24,13 @@ module.exports = {
   mounted() {
     var ctx = document.getElementById(this.id)
     var data = this.data.map(d => d[1])
-    var labels = this.data.map(d => d[0].replace(/_/g,' '))
+    var labels = this.data.map(d => format(d[0]))
     var colors = shuffle(window.colors)
     var myChart = new Chart(ctx, {
       type: 'pie',
       data: {
         labels: labels,
         datasets: [{
-          label: '# of Votes',
           data: data,
           backgroundColor: data.map((a,i) => hexToRgbA(colors[i],0.8)),
           borderColor: '#fff',

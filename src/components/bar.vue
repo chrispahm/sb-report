@@ -24,7 +24,7 @@ module.exports = {
   mounted() {
     var ctx = document.getElementById(this.id)
     var data = Object.keys(this.data).map(d => this.data[d])
-    var labels = Object.keys(this.data)
+    var labels = Object.keys(this.data).map(d => format(d))
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {

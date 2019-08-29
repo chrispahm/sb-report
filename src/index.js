@@ -24,14 +24,14 @@ window.colors = [
 //*/
 
 function shuffle(a) {
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-    return a;
+  var j, x, i;
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = a[i];
+    a[i] = a[j];
+    a[j] = x;
+  }
+  return a;
 }
 
 function hexToRgbA(hex, val) {
@@ -45,6 +45,19 @@ function hexToRgbA(hex, val) {
     return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + `,${val.toString()})`;
   }
   throw new Error('Bad Hex');
+}
+
+function format(string) {
+  try {
+    string = string.replace(/_/g, ' ')
+    string = string.replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    return string.toLowerCase()
+      .split(' ')
+      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(' ')
+  } catch (e) {
+    return string
+  }
 }
 
 new window.Vue({
@@ -72,12 +85,58 @@ new window.Vue({
         ],
         ['gras3_9_graz40_2cuts_hay60', 'lateGraz', 29.428412508738138],
         ['gras3_9_graz40_2cuts_hay60', 'hay', 10.265725293745861]
+      ],
+      profitFct: [
+        ['sumVarCost', '', 46970.45046619068],
+        ['Revenues', '', 112445.78419578116],
+        ['Profit(Euro)', '', 46065.37313004615],
+        ['SalesRevenues', '', 68500.64419578115],
+        ['RevenuesAnimals', '', 68500.64419578115],
+        ['RevenuesBeef', '', 68500.64419578115],
+        ['RevenuesByBeef', 'bullMeat_Type1_Saler', 8039.446969696971],
+        ['RevenuesByBeef',
+          'bullMeat_Type1_SalChar',
+          25833.891889728056
+        ],
+        ['RevenuesByBeef', 'oldCow', 13903.012499999997],
+        ['RevenuesByBeef',
+          'heifMeat_Type1_SalChar',
+          20724.292836356126
+        ],
+
+        ['SumSubsidies', '', 43545.54],
+        ['directPay', '', 32544],
+        ['coupledSupport', '', 11001.539999999999],
+        ['InterestGained', '', 399.6],
+        ['sumBuyCost', '', 33594.06481505741],
+        ['sumFeedBuyCost', '', 22311.07780979648],
+        ['BuyCost', 'ConcCattle1', 22084.770220450708],
+        ['BuyCost', 'SoyBeanMeal', 226.30758934577275],
+        ['BuyCost', 'Diesel', 580.9884093002339],
+        ['BuyCost', 'seed', 534.4443363271096],
+        ['BuyCost', 'straw', 4757.238254307317],
+        ['BuyCost', 'Other', 1881.3456712436323],
+        ['BuyCost', 'fixedMach', 14.029163828586626],
+        ['BuyCost', 'manCost', 3350.8979702540555],
+        ['BuyCost', 'buildCost', 164.0432],
+        ['buildVarCost', '', 4101.08],
+        ['machVarCost', '', 119.70717164356253],
+        ['manVarCost', '', 3350.8979702540555],
+        ['otherVarCost', '', 11215.016514561925],
+        ['depreciation', '', 19400.450671374794]
+      ],
+      soldOutputQuant: [
+        ['bullMeat_Type1_Saler', 3828.3080808080813],
+        ['bullMeat_Type1_SalChar', 10544.445669276756],
+        ['oldCow', 9.875],
+        ['heifMeat_Type1_SalChar', 9010.562102763533]
       ]
     }
   },
   components: {
     'pie': window.httpVueLoader('/src/components/pie.vue'),
     'bar': window.httpVueLoader('/src/components/bar.vue'),
-    'stackedbar': window.httpVueLoader('/src/components/stacked-bar.vue')
+    'stackedbar': window.httpVueLoader('/src/components/stacked-bar.vue'),
+    'fdtable': window.httpVueLoader('/src/components/table.vue')
   },
 })
