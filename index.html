@@ -52,19 +52,16 @@
       </div>
       <div class="columns">
           <!-- Sum Herds, tabelle -->
-          <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant"></fdtable>
+          <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Animal Type', 'Amount\n[kg or Number]']"></fdtable>
       </div>
         <!-- Feed, stacked bar per herd -->
         <!-- LU, tabelle-->
         <!-- Fertilisation table, stacked bar per crop -->
         <!-- Autonomy parameters - radial gauge-->
-      <fdtable title="Economics Output" :is-econ="true" :data="profitFct" ></fdtable>
+      <fdtable title="Economics Output" :is-econ="true" :data="profitFct" :header="['Description', 'Type', 'Amount [€]']"></fdtable>
         <!-- Environment, bar -->
         <!-- Social - stacked lines -->
         <!-- Calories - stacked lines -->
-      
-      
-      
     </div>
   </div>
   <script src="src/index.js"></script>
