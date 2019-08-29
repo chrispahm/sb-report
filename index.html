@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SustainBeef FarmDyn Report</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.1/dist/chartjs-plugin-deferred.min.js"></script>
+  <script src="https://unpkg.com/http-vue-loader"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+</head>
+
+<body class="page">
+  <div id="app">
+    <!-- Page Hero -->
+    <section class="hero left-tag">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            SustainBeef FarmDyn Report
+          </h1>
+          <h2 class="subtitle">
+            Deliverable 3.3
+          </h2>
+        </div>
+      </div>
+    </section>
+    <div class="subpage">
+      <!-- Navigation Bar -->
+      <nav class="level">
+        <a href="#" class="level-item tab">Crops</a>
+        <a href="#" class="level-item tab">Herds</a>
+        <a href="#" class="level-item tab">Feed</a>
+        <a href="#" class="level-item tab">Economics</a>
+        <a href="#" class="level-item tab">Environment</a>
+        <a href="#" class="level-item tab">Social</a>
+      </nav>
+      <!-- Page Header -->
+      <div class="summary-box has-text-white">
+        <h3 class="title is-3 has-text-white">Simulation Summary</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+          aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+      <!-- Sub Pages/Graph Section -->
+      <div class="columns">
+        <!-- Summary Graphs -->
+        <pie class="column is-half" id="pie" title="Crop Shares" :data="crops"></pie>
+        <stackedbar class="column is-half" id="pie2" title="Dry Matter Production Table" :data="dryMatter"></stackedbar>
+        <!-- Sum Herds, tabelle -->
+        <!-- Sold output quantity, tabelle-->
+        <!-- Feed, stacked bar per herd -->
+        <!-- LU, tabelle-->
+        <!-- Fertilisation table, stacked bar per crop -->
+        <!-- Autonomy parameters - radial gauge-->
+        <!-- Economics table -->
+        <!-- Environment, bar -->
+        <!-- Social - stacked lines -->
+        <!-- Calories - stacked lines -->
+      </div>
+    </div>
+  </div>
+  <script src="src/index.js"></script>
+</body>
+<style media="print">
+  .level {
+    display: none;
+  }
+</style>
+<style media="screen">
+  .page {
+    position: relative;
+    width: 210mm;
+    min-height: 300mm;
+    padding: 0mm;
+    margin: 10mm auto;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 0 10px lightgrey;
+  }
+</style>
+<style>
+  .subpage {
+    padding: 1cm;
+  }
+
+  .tab {
+    border-style: solid;
+    border-color: rgb(0, 0, 0, 0.2);
+    border-bottom-style: none;
+    border-top-style: none;
+    border-right-style: none;
+    padding: 5px 10px;
+  }
+
+  .first {
+    border-left-style: none;
+  }
+
+  .left-tag {
+    border-left: 20px solid #ef7a17;
+  }
+
+  a:link {
+    color: #696969;
+    text-decoration: none;
+  }
+
+  a:hover {
+    opacity: 0.6;
+  }
+
+  .summary-box {
+    padding: 1.25rem;
+    background-color: #ef7a17 /*#78c1a8 */;
+    margin-bottom: 25px;
+    color: white;
+  }
+
+  .fd-item {
+    position: relative;
+    color: #3a3a3a;
+    left: 0;
+    margin: 0mm;
+    border-left: 5px solid #ef7a17;
+    background: #ffffff;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    padding-right: 60px;
+    padding: 2px 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+</style>
+
+</html>
