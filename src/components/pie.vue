@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5 class="title is-5 fd-item">{{ title }}</h5>
+    <h5 v-bind:id="id + '_head'" class="title is-5 fd-item">{{ title }}</h5>
     <canvas v-bind:id="id" width="300" height="300"></canvas>
   </div>
 </template>

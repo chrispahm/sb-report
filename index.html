@@ -11,6 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.1/dist/chartjs-plugin-deferred.min.js"></script>
   <script src="https://unpkg.com/http-vue-loader"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+  <script src="./export.js"></script>
 </head>
 
 <body class="page">
@@ -31,11 +32,11 @@
     <div class="subpage">
       <!-- Navigation Bar -->
       <nav class="level">
-        <a href="#" class="level-item tab first">Crops</a>
+        <a href="#cropShares_head" class="level-item tab first">Crops</a>
         <a href="#" class="level-item tab">Herds</a>
-        <a href="#" class="level-item tab">Feed</a>
-        <a href="#" class="level-item tab">Economics</a>
-        <a href="#" class="level-item tab">Environment</a>
+        <a :href="'#' + Object.keys(feedHerdsByMonth)[0] + '_head'" class="level-item tab">Feed</a>
+        <a href="#economics" class="level-item tab">Economics</a>
+        <a href="#environmentalBar" class="level-item tab">Environment</a>
         <a href="#" class="level-item tab">Social</a>
       </nav>
       <!-- Page Header -->
@@ -45,23 +46,28 @@
           aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
       <!-- Sub Pages/Graph Section -->
-      <div class="columns">
+      <div class="columns is-multiline">
         <!-- Summary Graphs -->
-        <pie class="column is-half" id="pie" title="Crop Shares" :data="crops"></pie>
-        <stackedbar class="column is-half" id="pie2" title="Dry Matter Production Table" :data="dryMatter"></stackedbar>
-      </div>
-      <div class="columns">
-          <!-- Sum Herds, tabelle -->
-          <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Animal Type', 'Amount\n[kg or Number]']"></fdtable>
-      </div>
+        <pie class="column is-half" id="cropShares" title="Crop Shares" :data="cropHa"></pie>
+        <stackedbar class="column is-half" id="dmProd" title="Dry Matter Production Table" :data="dryMatter"></stackedbar>
+        <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Animal Type', 'Amount\n[kg or Number]']"></fdtable>
+        <!-- Sum Herds, tabelle -->
+        <fdtable class="column is-half" title="Herd Sizes" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
+        <fdtable class="column is-full" title="Economics Output" :is-econ="true" :data="profitFct" :header="['Description', 'Type', 'Amount [€]']"></fdtable>
         <!-- Feed, stacked bar per herd -->
+        <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="herd" :title="'Feed ' +  herd" :data="arr"></stackedbar>
         <!-- LU, tabelle-->
+        <fdtable class="column is-half" title="Livestock Units" :is-econ="false" :data="lu" :header="['Type', 'Value']"></fdtable>
         <!-- Fertilisation table, stacked bar per crop -->
+        <stackedbar class="column is-half" id="cropFert" title="N-Fertilisation per Crop" :data="n"></stackedbar>
         <!-- Autonomy parameters - radial gauge-->
-      <fdtable title="Economics Output" :is-econ="true" :data="profitFct" :header="['Description', 'Type', 'Amount [€]']"></fdtable>
         <!-- Environment, bar -->
+        <bar class="column is-half" id="environmentalBar" title="Environmental Indicators" :data="envi" :options="enviOptions"></bar>
         <!-- Social - stacked lines -->
+        <stackedlines class="column is-full" id="workHour" title="Work Hours Distribution Monthly" :data="work"></stackedlines>
         <!-- Calories - stacked lines -->
+        <stackedlines class="column is-full" id="calories" title="Work Hours Distribution Monthly" :data="work"></stackedlines>
+      </div>
     </div>
   </div>
   <script src="src/index.js"></script>

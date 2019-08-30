@@ -6,7 +6,7 @@
 </template>
 <script>
 module.exports = {
-  name: "stackedBar",
+  name: "stackedLine",
   props: {
     id: {
       type: String,
@@ -26,16 +26,13 @@ module.exports = {
     if (data[0].length > 3) data = this.rework(data)
     var ctx = document.getElementById(this.id)
     var myChart = new Chart(ctx, {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: this.createLabels(data).map(l => format(l)),
         datasets: this.createDatasets(data)
       },
       options: {
         scales: {
-          xAxes: [{
-            stacked: true
-          }],
           yAxes: [{
             stacked: true
           }]
@@ -54,7 +51,10 @@ module.exports = {
       return labels
     },
     createDatasets(data) {
-      const stacks = _.uniq(data.map(d => d[1]))
+      let stacks = _.uniq(data.map(d => d[1]))
+      if (stacks.indexOf('management') > -1) {
+        stacks = ['management', 'stableWork', 'field', 'animalWork', 'animalExtraWork']
+      }
       const colors = shuffle(window.colors)
       const datasets =  stacks.map((stack, i) => {
         return {

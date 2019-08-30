@@ -1,1 +1,2 @@
-N:\soft\GAMS28.2\GMSPython\python -m http.server 1337 && start "http://localhost:1337/"
+start "" /d "C:\Users\pahmeyer\Documents\sb-report" N:\em\work1\Pahmeyer\Node\npx serve 
+start "" /d "C:\Users\pahmeyer\Documents\sb-report" explorer "http://localhost:5000" 
