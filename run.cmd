@@ -1,2 +1,2 @@
-start "" /d "C:\Users\pahmeyer\Documents\sb-report" N:\em\work1\Pahmeyer\Node\npx serve 
-start "" /d "C:\Users\pahmeyer\Documents\sb-report" explorer "http://localhost:5000" 
+start "" /d "N:\em\work1\Pahmeyer\sb-report" N:\em\work1\Pahmeyer\Node\npx serve 
+start "" /d "N:\em\work1\Pahmeyer\sb-report" explorer "http://localhost:5000" 
