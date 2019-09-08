@@ -25,14 +25,15 @@ module.exports = {
     var ctx = document.getElementById(this.id)
     var data = this.data.map(d => d[1])
     var labels = this.data.map(d => format(d[0]))
-    var colors = shuffle(window.colors)
+    var colors = createColors(this.data.length)
+    console.log(colors);
     var myChart = new Chart(ctx, {
       type: 'pie',
       data: {
         labels: labels,
         datasets: [{
           data: data,
-          backgroundColor: data.map((a,i) => hexToRgbA(colors[i],0.8)),
+          backgroundColor: data.map((a,i) => toRgbA(colors[i],0.8)),
           borderColor: '#fff',
           borderWidth: 2
         }]

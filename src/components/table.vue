@@ -3,11 +3,15 @@
     <h5 v-bind:id="id + '_head'" class="title is-5 fd-item">{{ title }}</h5>
     <table class="table is-striped is-fullwidth">
       <thead v-if="header">
-        <th v-for="(head,i) in header" :key="`${head}_${i}_head`">{{head}}</th>
+        <th v-for="(head,i) in header" :key="`${head}_${i}_head`">
+          {{head}}
+        </th>
       </thead>
       <tbody>
         <tr v-for="(row,j) in data" :key="`${JSON.stringify(row)}_${j}_row`">
-          <td v-for="(cell,k) in row" :key="`${cell}_${k}_cell`">{{cellFormat(cell)}}</td>
+          <td v-for="(cell,k) in row" :key="`${cell}_${k}_cell`">{{
+            cellFormat(cell)}}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -46,8 +50,9 @@ module.exports = {
         style: 'currency',
         currency: 'EUR'
       })
-      if (this.isEcon && !isNaN(Number(cell)) && cell) return formatter.format(cell)
-      else if (!isNaN(Number(cell)) && cell) return cell.toFixed(2)
+      if (this.isEcon && !isNaN(Number(cell)) && cell) {
+        return formatter.format(cell)
+      } else if (!isNaN(Number(cell)) && cell) return cell.toFixed(2)
       return format(cell)
     }
   }

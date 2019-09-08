@@ -55,16 +55,17 @@ module.exports = {
     },
     createDatasets(data) {
       const stacks = _.uniq(data.map(d => d[1]))
-      const colors = shuffle(window.colors)
+      const colors = createColors(stacks.length)
       const datasets =  stacks.map((stack, i) => {
         return {
           label: format(stack),
           data: this.labels.map(d => {
-            const find = _.find(data, a => a[0].toUpperCase() === d.toUpperCase() && a[1] === stack)
+            const find = _.find(data, a => 
+              a[0].toUpperCase() === d.toUpperCase() && a[1] === stack)
             return find ? find[2] : 0
           }),
-          backgroundColor: hexToRgbA(colors[i], 0.8),
-          borderColor: hexToRgbA(colors[i], 1),
+          backgroundColor: toRgbA(colors[i], 0.8),
+          borderColor: toRgbA(colors[i], 1),
           borderWidth: 1
         }
       })

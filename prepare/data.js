@@ -1,9 +1,7 @@
 const gdx = require('node-gdx')
 const fs = require('fs')
 const _ = require('lodash')
-
-// const file = process.argv[2]  Fr.Cant-CC  FR.Cant-DCC  Fr.Lim-CC  FR.Lor-BF  GE.BAV-F  GE.LS-F  GE.NRW-DF  IT-F.226  IT-F.913
-const file = 'N:/em/work1/FarmDyn/FamrDyn_Kokemohr/running_file_3/trunk/results/SustainBeef/FR.Lor-BF.gdx'
+const file = require('./config')
 
 ;(async () => {
   const exportData = {}

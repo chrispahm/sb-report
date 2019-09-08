@@ -1,29 +1,21 @@
-/*
-window.colors = [
-  '#ef7a17',
-  '#ef5948',
-  '#dc466a',
-  '#b84482',
-  '#8a498e',
-  '#584b89',
-  '#274877',
-  '#003f5c'
-]
-*/
-///*
-window.colors = [
-  '#003f5c',
-  '#274877',
-  '#584b89',
-  '#8a498e',
-  '#b84482',
-  '#dc466a',
-  '#ef5948',
-  '#ef7a17'
-]
-//*/
+function createColors(length) {
+  if (length === 1) {
+    return ['rgb(0, 63, 92)']
+  } else if (length === 2) {
+    return ['rgb(0, 63, 92)', 'rgb(238, 122, 23)']
+  }
+  return gradstop({
+    stops: length,
+    inputFormat: 'hex',
+    colorArray: ['#003f5c', '#8a498e', '#ef7a17']
+  })
+}
 
-window.shortMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+window.shortMonths = [
+  'JAN', 'FEB', 'MAR', 'APR', 
+  'MAY', 'JUN', 'JUL', 'AUG', 
+  'SEP', 'OCT', 'NOV', 'DEC'
+]
 
 window.data.enviOptions = {
   scales: {
@@ -33,28 +25,10 @@ window.data.enviOptions = {
   }
 }
 
-function shuffle(a) {
-  var j, x, i;
-  for (i = a.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    x = a[i];
-    a[i] = a[j];
-    a[j] = x;
-  }
-  return a;
-}
-
-function hexToRgbA(hex, val) {
-  var c;
-  if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-    c = hex.substring(1).split('');
-    if (c.length == 3) {
-      c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-    }
-    c = '0x' + c.join('');
-    return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + `,${val.toString()})`;
-  }
-  throw new Error('Bad Hex');
+function toRgbA(rgb, val) {
+  const regExp = new RegExp(/\((.*)\)/)
+  rgb = regExp.exec(rgb)[1]
+  return `rgba(${rgb},${val})`
 }
 
 function format(string) {
