@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "serve": "^11.1.0",
+    "node-gdx": "^1.0.4",
     "puppeteer": "^1.19.0",
-    "node-gdx": "^1.0.4"
+    "serve": "^11.1.0"
   }
 }

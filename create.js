@@ -7,7 +7,7 @@ const mkdir = util.promisify(fs.mkdir)
 module.exports = async (farm) => {
   try {
     const browser = await puppeteer.launch({
-      headless: false
+      headless: true
     })
     const page = await browser.newPage()
     await page.goto('http://localhost:5000/')
@@ -30,8 +30,9 @@ module.exports = async (farm) => {
     // save all graphs to images
     for (var i = 0; i < urls.length; i++) {
       const viewSource = await page.goto(urls[i][0])
-      writeFile(`output/images/${urls[i][1]}.png`, await viewSource.buffer())
+      writeFile(`output/${farm}/${urls[i][1]}.png`, await viewSource.buffer())
     }
+    await browser.close()
   } catch (e) {
     console.log(e)
   }

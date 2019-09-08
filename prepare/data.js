@@ -3,16 +3,16 @@ const http = require('http')
 const fs = require('fs')
 const _ = require('lodash')
 const path = require('path')
-const file = require('./config')
-const create = require('./create')
+const file = require('../config')
+const create = require('../create')
 
 function serverRunning() {
   return new Promise((resolve, reject) => {
     http
       .request({
         method:'HEAD',
-        host: 'http://localhost:5000/',
-        port:80,
+        host: 'localhost',
+        port:5000,
         path: '/'
       }, (r) => {
         resolve(r.statusCode >= 200 && r.statusCode < 400 )
