@@ -42,13 +42,7 @@ module.exports = {
           borderWidth: 2
         }]
       },
-      options: this.options || {
-        plugins: {
-          deferred: {
-            xOffset: '80%'
-          }
-        }
-      }
+      options: this.options
     })
   }
 }

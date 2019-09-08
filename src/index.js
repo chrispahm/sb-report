@@ -77,8 +77,9 @@ function afterPrint() {
 
 function setPrinting(printing) {
   window._printing = printing
-  Chart.helpers.each(Chart.instances, function(chart) {
+  Chart.helpers.each(Chart.instances, chart => {
     chart.options.plugins.deferred = !printing
+    if (printing) chart.options.animation.duration = 0
     chart.resize()
     chart.update()
   });

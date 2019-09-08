@@ -12,7 +12,7 @@ module.exports = async (farm) => {
     const page = await browser.newPage()
     await page.goto('http://localhost:5000/')
     // save a PDF of the full output
-    writeFile(`output/${farm}.pdf`, await page.pdf())
+    writeFile(`output/${farm}.pdf`, await page.pdf({format: 'A4'}))
     // get image urls for all graphs on the page
     const urls = await page.evaluate(() => {
       const urls = []

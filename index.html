@@ -65,7 +65,8 @@
         <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
         <!-- Input quant, tabelle-->
         <fdtable class="column is-half" title="Bought Input Quantity" :data="inputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
-        <div class="summary-box has-text-white break">
+        <div class="break"></div>
+        <div class="summary-box has-text-white">
           <h3 class="title is-3 has-text-white">Economic indicator</h3>
           <p>Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator</p>
         </div>
@@ -75,24 +76,27 @@
         <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="herd" :title="'Feed ' +  herd" :data="arr"></stackedbar>
 
         <!-- Autonomy parameters - radial gauge-->
-        <div class="summary-box has-text-white break">
+        <div class="break"></div>
+        <div class="summary-box has-text-white">
           <h3 class="title is-3 has-text-white">Environmental indicator</h3>
           <p>Environmental indicator Environmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicator</p>
         </div>
         <!-- Environment, bar -->
         <bar class="column is-half" id="environmentalBar" title="Environmental Indicators" :data="envi" :options="enviOptions"></bar>
         <pie class="column is-half" id="GWP" title="Source contribution GWP" :data="GWP"></pie>
+        <div class="break"></div>
         <pie class="column is-half" id="PMFP" title="Source contribution PMFP" :data="PMFP"></pie>
         <pie class="column is-half" id="TAP" title="Source contribution TAP" :data="TAP"></pie>
         <pie class="column is-half" id="FEP" title="Source contribution FEP" :data="FEP"></pie>
         <pie class="column is-half" id="MEP" title="Source contribution MEP" :data="MEP"></pie>
-
-        <div class="summary-box has-text-white break">
+        <div class="break"></div>
+        <div class="summary-box has-text-white">
           <h3 class="title is-3 has-text-white">Social indicator</h3>
           <p>Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator</p>
         </div>
         <!-- Social - stacked lines -->
         <stackedlines class="column is-full" id="workHour" title="Work Hours Distribution Monthly" :data="work"></stackedlines>
+        <div class="break"></div>
         <fdtable class="column is-half" id="workHoursum" title="Work Hours total" :data="work1"></fdtable>
         <!-- Calories - bar -->
         <fdtable class="column is-half" id="calorie" title="Calorie and protein effciency of cattle branch" :data="calorie"></fdtable>
@@ -125,8 +129,6 @@
       min-height: initial;
       box-shadow: initial;
       background: initial;
-      page-break-after: always;
-      break-after: page;
     }
   }
   

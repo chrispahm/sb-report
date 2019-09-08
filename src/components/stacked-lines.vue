@@ -36,11 +36,6 @@ module.exports = {
           yAxes: [{
             stacked: true
           }]
-        },
-        plugins: {
-          deferred: {
-            xOffset: '80%'
-          }
         }
       }
     })

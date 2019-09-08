@@ -44,9 +44,6 @@ module.exports = {
       options: {
         // zoomOutPercentage: 70,
         plugins: {
-          deferred: {
-            xOffset: '80%'
-          },
           outlabels: {
             text: '%l %v',
             display() {

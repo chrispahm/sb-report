@@ -2,7 +2,7 @@
   <div>
     <h5 v-bind:id="id + '_head'" class="title is-5 fd-item">{{ title }}</h5>
     <table class="table is-striped is-fullwidth">
-      <thead v-if="header">
+      <thead style="page-break-inside: auto;" v-if="header">
         <th v-for="(head,i) in header" :key="`${head}_${i}_head`">
           {{head}}
         </th>
