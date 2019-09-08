@@ -39,6 +39,11 @@ module.exports = {
           yAxes: [{
             stacked: true
           }]
+        },
+        plugins: {
+          datalabels: {
+            display: false
+          }
         }
       }
     })

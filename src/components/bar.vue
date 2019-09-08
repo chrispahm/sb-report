@@ -42,7 +42,13 @@ module.exports = {
           borderWidth: 2
         }]
       },
-      options: this.options
+      options: this.options || {
+        plugins: {
+          datalabels: {
+            display: false
+          }
+        }
+      }
     })
   }
 }

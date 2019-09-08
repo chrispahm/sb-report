@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "prepare": "node prepare/data.js",
-    "serve": "npx serve",
+    "serve": "serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gradstop": "^2.2.3",
-    "lodash": "^4.17.15",
+    "serve": "^11.1.0",
+    "puppeteer": "^1.19.0",
     "node-gdx": "^1.0.4"
   }
 }

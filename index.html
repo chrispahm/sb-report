@@ -9,6 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.1/dist/chartjs-plugin-deferred.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels" charset="utf-8"></script>
   <script src="https://unpkg.com/http-vue-loader"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/Siddharth11/gradstop/gradstopUMD.js"></script>
@@ -48,9 +49,10 @@
       <!-- Sub Pages/Graph Section -->
       <div class="columns is-multiline">
         <!-- Cropshares -->
-        <pie class="column is-half" id="cropShares" title="Crop Shares" :data="cropHa"></pie>
+        <pie class="column is-half test" id="cropShares" title="Crop Shares" :data="cropHa"></pie>
         <!-- Crop production -->
         <stackedbar class="column is-half" id="dmProd" title="Dry Matter Production Table" :data="dryMatter"></stackedbar>
+        <div class="page-break"></div>
         <!-- Fertilisation table, stacked bar per crop -->
         <stackedbar class="column is-half" id="cropFertN" title="N-Fertilisation per Crop" :data="n"></stackedbar>
         <!-- Fertilisation table, stacked bar per crop -->
@@ -99,24 +101,36 @@
   </div>
   <script src="src/index.js"></script>
 </body>
-<style media="print">
-  .level {
-    display: none;
-  }
-</style>
-<style media="screen">
-  .page {
-    position: relative;
-    width: 210mm;
-    min-height: 300mm;
-    padding: 0mm;
-    margin: 10mm auto;
-    border-radius: 5px;
-    background: white;
-    box-shadow: 0 0 10px lightgrey;
-  }
-</style>
 <style>
+  @media all {
+  	.page-break	{ display: none; }
+  }
+
+  @media print {
+  	.page-break	{ 
+      display: block; 
+      page-break-before: always; 
+    }
+    .level {
+      display: none;
+    }
+  }
+  
+  @media screen {
+    .page {
+      position: relative;
+      width: 210mm;
+      min-height: 300mm;
+      padding: 0mm;
+      margin: 10mm auto;
+      border-radius: 5px;
+      background: white;
+      box-shadow: 0 0 10px lightgrey;
+    }
+  }
+  .column {
+    page-break-inside: avoid;
+  }
   .subpage {
     padding: 1cm;
   }

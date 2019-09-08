@@ -12,16 +12,21 @@ function createColors(length) {
 }
 
 window.shortMonths = [
-  'JAN', 'FEB', 'MAR', 'APR', 
-  'MAY', 'JUN', 'JUL', 'AUG', 
+  'JAN', 'FEB', 'MAR', 'APR',
+  'MAY', 'JUN', 'JUL', 'AUG',
   'SEP', 'OCT', 'NOV', 'DEC'
 ]
 
 window.data.enviOptions = {
   scales: {
-      yAxes: [{
-      type: 'logarithmic'  
+    yAxes: [{
+      type: 'logarithmic'
     }]
+  },
+  plugins: {
+    datalabels: {
+      display: false
+    }
   }
 }
 
@@ -42,6 +47,39 @@ function format(string) {
   } catch (e) {
     return string
   }
+}
+
+function beforePrint() {
+  setPrinting(true)
+}
+
+function afterPrint() {
+  setPrinting(false)
+}
+
+;(function() {
+  if (window.matchMedia) {
+    var mediaQueryList = window.matchMedia('print')
+    mediaQueryList.addListener(function(mql) {
+      if (mql.matches) {
+        beforePrint()
+      } else {
+        afterPrint()
+      }
+    })
+  }
+
+  window.onbeforeprint = beforePrint;
+  window.onafterprint = afterPrint;
+}())
+
+function setPrinting(printing) {
+  window._printing = printing
+  Chart.helpers.each(Chart.instances, function(chart) {
+    chart.options.plugins.deferred = !printing
+    chart.resize()
+    chart.update()
+  });
 }
 
 new window.Vue({
