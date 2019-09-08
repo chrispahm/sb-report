@@ -1,3 +1,5 @@
+Chart.defaults.global.defaultFontFamily = "'Raleway', sans-serif"
+
 function createColors(length) {
   if (length === 1) {
     return ['rgb(0, 63, 92)']

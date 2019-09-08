@@ -41,8 +41,8 @@ module.exports = {
           }]
         },
         plugins: {
-          datalabels: {
-            display: false
+          deferred: {
+            xOffset: '80%'
           }
         }
       }

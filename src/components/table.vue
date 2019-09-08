@@ -52,7 +52,9 @@ module.exports = {
       })
       if (this.isEcon && !isNaN(Number(cell)) && cell) {
         return formatter.format(cell)
-      } else if (!isNaN(Number(cell)) && cell) return cell.toFixed(2)
+      } else if (!isNaN(Number(cell)) && cell) {
+        return _.round(cell,2).toLocaleString('de-DE')
+      }
       return format(cell)
     }
   }

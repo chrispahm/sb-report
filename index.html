@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SustainBeef FarmDyn Report</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.1/dist/chartjs-plugin-deferred.min.js"></script>
@@ -16,8 +17,8 @@
   <script src="./export.js"></script>
 </head>
 
-<body class="page">
-  <div id="app">
+<body>
+  <div class="page" id="app">
     <!-- Page Hero -->
     <section class="hero left-tag">
       <div class="hero-body">
@@ -49,10 +50,9 @@
       <!-- Sub Pages/Graph Section -->
       <div class="columns is-multiline">
         <!-- Cropshares -->
-        <pie class="column is-half test" id="cropShares" title="Crop Shares" :data="cropHa"></pie>
+        <pie class="column is-half" id="cropShares" title="Crop Shares" :data="cropHa"></pie>
         <!-- Crop production -->
         <stackedbar class="column is-half" id="dmProd" title="Dry Matter Production Table" :data="dryMatter"></stackedbar>
-        <div class="page-break"></div>
         <!-- Fertilisation table, stacked bar per crop -->
         <stackedbar class="column is-half" id="cropFertN" title="N-Fertilisation per Crop" :data="n"></stackedbar>
         <!-- Fertilisation table, stacked bar per crop -->
@@ -65,7 +65,7 @@
         <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
         <!-- Input quant, tabelle-->
         <fdtable class="column is-half" title="Bought Input Quantity" :data="inputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
-        <div class="summary-box has-text-white">
+        <div class="summary-box has-text-white break">
           <h3 class="title is-3 has-text-white">Economic indicator</h3>
           <p>Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator</p>
         </div>
@@ -75,7 +75,7 @@
         <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="herd" :title="'Feed ' +  herd" :data="arr"></stackedbar>
 
         <!-- Autonomy parameters - radial gauge-->
-        <div class="summary-box has-text-white">
+        <div class="summary-box has-text-white break">
           <h3 class="title is-3 has-text-white">Environmental indicator</h3>
           <p>Environmental indicator Environmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicator</p>
         </div>
@@ -87,7 +87,7 @@
         <pie class="column is-half" id="FEP" title="Source contribution FEP" :data="FEP"></pie>
         <pie class="column is-half" id="MEP" title="Source contribution MEP" :data="MEP"></pie>
 
-        <div class="summary-box has-text-white">
+        <div class="summary-box has-text-white break">
           <h3 class="title is-3 has-text-white">Social indicator</h3>
           <p>Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator</p>
         </div>
@@ -102,17 +102,31 @@
   <script src="src/index.js"></script>
 </body>
 <style>
-  @media all {
-  	.page-break	{ display: none; }
-  }
-
   @media print {
-  	.page-break	{ 
-      display: block; 
-      page-break-before: always; 
+    .columns {
+      display: table !important;
     }
     .level {
       display: none;
+    }
+    
+    .column {
+      display: inline-block !important;
+      page-break-inside: avoid;
+    }
+    
+    .page {
+      position: relative;
+      padding: 0mm;
+      margin: 0;
+      border: initial;
+      border-radius: initial;
+      width: initial;
+      min-height: initial;
+      box-shadow: initial;
+      background: initial;
+      page-break-after: always;
+      break-after: page;
     }
   }
   
@@ -128,11 +142,18 @@
       box-shadow: 0 0 10px lightgrey;
     }
   }
-  .column {
-    page-break-inside: avoid;
+  body {
+    font-family: 'Raleway', sans-serif;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    font-family: 'Open Sans', sans-serif;
+  }
+  .break {
+    page-break-before: always;
   }
   .subpage {
     padding: 1cm;
+    min-height: 300mm;
   }
 
   .tab {

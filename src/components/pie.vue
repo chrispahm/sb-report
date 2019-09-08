@@ -23,13 +23,14 @@ module.exports = {
   },
   mounted() {
     var ctx = document.getElementById(this.id)
-    var data = this.data.map(d => d[1])
-    var labels = this.data.map(d => format(d[0]))
+    var sorted = this.data.sort(function(a, b){return a[1] - b[1]})
+    var data = sorted.map(d => d[1])
+    var labels = sorted.map(d => format(d[0]))
     var colors = createColors(this.data.length)
-    console.log(colors);
     var myChart = new Chart(ctx, {
       get type() {
-        return window._printing ? 'outlabeledPie' : 'pie'
+        return 'outlabeledPie'
+        // return window._printing ? 'outlabeledPie' : 'pie'
       },
       data: {
         labels: labels,
@@ -41,21 +42,21 @@ module.exports = {
         }]
       },
       options: {
+        // zoomOutPercentage: 70,
         plugins: {
-          datalabels: {
-            color: 'white',
-            display: false
+          deferred: {
+            xOffset: '80%'
           },
           outlabels: {
             text: '%l %v',
             display() {
-              return window._printing ? true : false
+              return true
+              // return window._printing ? true : false
             },
             color: 'white',
-            stretch: 20,
+            stretch: 10,
             font: {
               resizable: true,
-              minSize: 12,
               maxSize: 18
             }
           }
