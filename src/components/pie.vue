@@ -53,8 +53,7 @@ module.exports = {
             color: 'white',
             stretch: 10,
             font: {
-              resizable: true,
-              maxSize: 18
+              resizable: true
             }
           }
         }
