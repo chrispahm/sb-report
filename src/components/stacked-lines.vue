@@ -5,7 +5,11 @@
 </div>
 </template>
 <script>
-module.exports = {
+import Chart from 'chart.js'
+import helpers from '../helpers'
+Chart.defaults.global.defaultFontFamily = "'Raleway', sans-serif"
+
+export default {
   name: "stackedLine",
   props: {
     id: {

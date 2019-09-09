@@ -7,102 +7,15 @@
   <title>SustainBeef FarmDyn Report</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.1/dist/chartjs-plugin-deferred.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels" charset="utf-8"></script>
-  <script src="https://unpkg.com/http-vue-loader"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/Siddharth11/gradstop/gradstopUMD.js"></script>
   <script src="./export.js"></script>
 </head>
 
 <body>
-  <div class="page" id="app">
-    <!-- Page Hero -->
-    <section class="hero left-tag">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            SustainBeef FarmDyn Report
-          </h1>
-          <h2 class="subtitle">
-            Deliverable 3.3
-          </h2>
-        </div>
-      </div>
-    </section>
-    <div class="subpage">
-      <!-- Navigation Bar -->
-      <nav class="level">
-        <a href="#cropShares_head" class="level-item tab first">Crops</a>
-        <a href="#Herdsize" class="level-item tab">Herds</a>
-        <a :href="'#' + Object.keys(feedHerdsByMonth)[0] + '_head'" class="level-item tab">Feed</a>
-        <a href="#economics" class="level-item tab">Economics</a>
-        <a href="#environmentalBar" class="level-item tab">Environment</a>
-        <a href="#" class="level-item tab">Social</a>
-      </nav>
-      <!-- Page Header -->
-      <div class="summary-box has-text-white">
-        <h3 class="title is-3 has-text-white">Simulation Summary</h3>
-        <p>General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator</p>
-      </div>
-      <!-- Sub Pages/Graph Section -->
-      <div class="columns is-multiline">
-        <!-- Cropshares -->
-        <pie class="column is-half" id="cropShares" title="Crop Shares" :data="cropHa"></pie>
-        <!-- Crop production -->
-        <stackedbar class="column is-half" id="dmProd" title="Dry Matter Production Table" :data="dryMatter"></stackedbar>
-        <!-- Fertilisation table, stacked bar per crop -->
-        <stackedbar class="column is-half" id="cropFertN" title="N-Fertilisation per Crop" :data="n"></stackedbar>
-        <!-- Fertilisation table, stacked bar per crop -->
-        <stackedbar class="column is-half" id="cropFertP" title="P-Fertilisation per Crop" :data="P"></stackedbar>
-        <!-- Sum Herds, tabelle -->
-        <fdtable class="column is-half" id="Herdsize"title="Herd Sizes" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
-        <!-- LU, tabelle-->
-        <fdtable class="column is-half" title="Livestock Units" :is-econ="false" :data="lu" :header="['Type', 'Value']"></fdtable>
-        <!-- Output quant, tabelle-->
-        <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
-        <!-- Input quant, tabelle-->
-        <fdtable class="column is-half" title="Bought Input Quantity" :data="inputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
-        <div class="break"></div>
-        <div class="summary-box has-text-white">
-          <h3 class="title is-3 has-text-white">Economic indicator</h3>
-          <p>Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator</p>
-        </div>
-        <!-- Economics, tabelle-->
-        <fdtable class="column is-full" title="Economics Output" :is-econ="true" :data="profitFct" :header="['Description', 'Type', 'Amount [€]']"></fdtable>
-        <!-- Feed, stacked bar per herd -->
-        <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="herd" :title="'Feed ' +  herd" :data="arr"></stackedbar>
-
-        <!-- Autonomy parameters - radial gauge-->
-        <div class="break"></div>
-        <div class="summary-box has-text-white">
-          <h3 class="title is-3 has-text-white">Environmental indicator</h3>
-          <p>Environmental indicator Environmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicator</p>
-        </div>
-        <!-- Environment, bar -->
-        <bar class="column is-half" id="environmentalBar" title="Environmental Indicators" :data="envi" :options="enviOptions"></bar>
-        <pie class="column is-half" id="GWP" title="Source contribution GWP" :data="GWP"></pie>
-        <div class="break"></div>
-        <pie class="column is-half" id="PMFP" title="Source contribution PMFP" :data="PMFP"></pie>
-        <pie class="column is-half" id="TAP" title="Source contribution TAP" :data="TAP"></pie>
-        <pie class="column is-half" id="FEP" title="Source contribution FEP" :data="FEP"></pie>
-        <pie class="column is-half" id="MEP" title="Source contribution MEP" :data="MEP"></pie>
-        <div class="break"></div>
-        <div class="summary-box has-text-white">
-          <h3 class="title is-3 has-text-white">Social indicator</h3>
-          <p>Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator</p>
-        </div>
-        <!-- Social - stacked lines -->
-        <stackedlines class="column is-full" id="workHour" title="Work Hours Distribution Monthly" :data="work"></stackedlines>
-        <div class="break"></div>
-        <fdtable class="column is-half" id="workHoursum" title="Work Hours total" :data="work1"></fdtable>
-        <!-- Calories - bar -->
-        <fdtable class="column is-half" id="calorie" title="Calorie and protein effciency of cattle branch" :data="calorie"></fdtable>
-      </div>
-    </div>
-  </div>
+  <div id="app"></div>
   <script src="src/index.js"></script>
 </body>
 <style>
