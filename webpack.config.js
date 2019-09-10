@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
@@ -13,7 +14,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-    }),
+  		inlineSource: '.(js|css)$' // embed all javascript and css inline
+  	}),
+    new HtmlWebpackInlineSourcePlugin(),
     new VueLoaderPlugin(),
   ]
 }

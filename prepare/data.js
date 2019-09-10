@@ -1,29 +1,14 @@
-const Vue = require('Vue')
 const gdx = require('node-gdx')
-const http = require('http')
+const {exec} = require('child_process')
 const fs = require('fs')
 const _ = require('lodash')
 const util = require('util')
 const path = require('path')
 const create = require('../create')
-const writeFile = util.promisify(fs.writeFile)
-const readFile = util.promisify(fs.readFile)
 
-function serverRunning() {
-  return new Promise((resolve, reject) => {
-    http
-      .request({
-        method:'HEAD',
-        host: 'localhost',
-        port:5000,
-        path: '/'
-      }, (r) => {
-        resolve(r.statusCode >= 200 && r.statusCode < 400 )
-      })
-      .on('error', reject)
-      .end()
-  })
-}
+const writeFile = util.promisify(fs.writeFile)
+const execPromise = util.promisify(exec)
+const copyFile = util.promisify(fs.copyFile)
 
 module.exports = async (file) => {
   try {
@@ -93,11 +78,12 @@ module.exports = async (file) => {
     
     const exportString = `module.exports = ${JSON.stringify(eD)}`
     await writeFile('src/export.js', exportString,'utf8')
-    
-    // if server is running, update graphs and pdf
-    if (await serverRunning()) {
-      await create(path.basename(file,'.gdx'))
-    }
+    // build the project html and copy
+    await execPromise('npm run build')
+    // copy html to output dir
+    await copyFile('./dist/index.html', `./output/${path.basename(file,'.gdx')}.html`)
+    // create pdf report and images
+    await create(path.basename(file,'.gdx'))
   } catch (e) {
     console.log(e)
   }
