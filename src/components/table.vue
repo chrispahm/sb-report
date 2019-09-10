@@ -49,14 +49,14 @@ export default {
   },
   methods: {
     cellFormat(cell) {
-      const formatter = new Intl.NumberFormat('de-DE', {
+      const formatter = new Intl.NumberFormat('en-GB', {
         style: 'currency',
         currency: 'EUR'
       })
       if (this.isEcon && !isNaN(Number(cell)) && cell) {
         return formatter.format(cell)
       } else if (!isNaN(Number(cell)) && cell) {
-        return _.round(cell,2).toLocaleString('de-DE')
+        return _.round(cell,2).toLocaleString('en-GB')
       }
       return helpers.format(cell)
     }

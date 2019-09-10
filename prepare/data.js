@@ -74,7 +74,15 @@ module.exports = async (file) => {
     eD.calorie = data.p_soci
                .filter(zeile => zeile['3'] === 'Calorie')
                .map(zeile => [zeile['1'],zeile.Value])
-               
+    eD.labProfit = data.p_econ
+                    .filter(zeile => zeile['1'] === 'Profitability')     
+                    .map(zeile => [zeile['1'],zeile.Value])  
+    eD.autoSharePrem = data.p_econ
+                    .filter(zeile => zeile['2'] === 'shareprem')     
+                    .map(zeile => zeile.Value)  
+    eD.autoShareInput = data.p_econ
+                    .filter(zeile => zeile['2'] === 'shareInput')     
+                    .map(zeile => zeile.Value)      
     
     const exportString = `module.exports = ${JSON.stringify(eD)}`
     await writeFile('src/export.js', exportString,'utf8')

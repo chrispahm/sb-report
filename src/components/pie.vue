@@ -59,7 +59,8 @@ export default {
             color: 'white',
             stretch: 10,
             font: {
-              resizable: true
+              resizable: true,
+              minSize: 12
             }
           }
         }

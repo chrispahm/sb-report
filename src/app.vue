@@ -55,8 +55,11 @@
         <fdtable class="column is-full" title="Economics Output" :is-econ="true" :data="profitFct" :header="['Description', 'Type', 'Amount [€]']"></fdtable>
         <!-- Feed, stacked bar per herd -->
         <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="herd" :title="'Feed ' +  herd" :data="arr"></stackedbar>
-
+        <div class="break"></div>
         <!-- Autonomy parameters - radial gauge-->
+        <radial class="column is-half" id="autoSharePrem" title="Share Premium on Revenues" :data="autoSharePrem"></radial>
+        <radial class="column is-half" id="autoShareInput" title="Share Input Costs on Variable Costs" :data="autoShareInput"></radial>
+        <bar class="column is-half" id="wageHour" title="Hourly Wage" :data="labProfit"></bar>
         <div class="break"></div>
         <div class="summary-box has-text-white">
           <h3 class="title is-3 has-text-white">Environmental indicator</h3>
@@ -94,6 +97,7 @@ import pie from './components/pie.vue'
 import stackedbar from './components/stacked-bar.vue'
 import stackedlines from './components/stacked-lines.vue'
 import fdtable from './components/table.vue'
+import radial from './components/radialGauge.vue'
 
 export default {
   data() {
@@ -101,7 +105,11 @@ export default {
         enviOptions: {
           scales: {
             yAxes: [{
-              type: 'logarithmic'
+              type: 'logarithmic',
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 20
+              }
             }]
           },
           plugins: {
@@ -118,7 +126,8 @@ export default {
     'pie': pie,
     'stackedbar': stackedbar,
     'stackedlines': stackedlines,
-    'fdtable': fdtable
+    'fdtable': fdtable,
+    'radial': radial
   }
 }
 </script>
