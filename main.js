@@ -6,7 +6,7 @@ const readDir = util.promisify(fs.readdir)
 
 ;(async () => {
   const files = await readDir('input')
-  console.log(files);
+  console.log('Found the following files: ' + files)
   for (let i = 0; i < files.length; i++) {
     const file = `./input/${files[i]}`
     await prepare(file)

@@ -1,18 +1,18 @@
 const puppeteer = require('puppeteer')
 const fs = require('fs')
 const util = require('util')
-const path = require('path')
 const writeFile = util.promisify(fs.writeFile)
 const mkdir = util.promisify(fs.mkdir)
 
 module.exports = async (farm) => {
+  console.log('Currently working on the farm: ', farm)
   try {
     const browser = await puppeteer.launch({
       headless: true,
       // slowMo: 1000
     })
     const page = await browser.newPage()
-    console.log(`file://${__dirname}/output/${farm}.html`)
+    
     await page.goto(`file://${__dirname}/output/${farm}.html`)
     // save a PDF of the full output
     writeFile(`output/${farm}.pdf`, await page.pdf({format: 'A4'}))
