@@ -18,7 +18,10 @@
   </div>
 </template>
 <script>
-module.exports = {
+import helpers from '../helpers'
+import _ from 'lodash'
+
+export default {
   name: "fdtable",
   props: {
     title: {
@@ -55,7 +58,7 @@ module.exports = {
       } else if (!isNaN(Number(cell)) && cell) {
         return _.round(cell,2).toLocaleString('de-DE')
       }
-      return format(cell)
+      return helpers.format(cell)
     }
   }
 }

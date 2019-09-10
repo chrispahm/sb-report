@@ -5,7 +5,12 @@
   </div>
 </template>
 <script>
-module.exports = {
+import Chart from 'chart.js'
+import _ from 'lodash'
+import helpers from '../helpers'
+Chart.defaults.global.defaultFontFamily = "'Raleway', sans-serif"
+
+export default {
   name: "bar",
   props: {
     id: {
@@ -28,8 +33,8 @@ module.exports = {
   mounted() {
     var ctx = document.getElementById(this.id)
     var data = this.data.map(d => d[1])
-    var labels = this.data.map(d => format(d[0]))
-    var colors = createColors(this.data.length)
+    var labels = this.data.map(d => helpers.format(d[0]))
+    var colors = helpers.createColors(this.data.length)
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -37,7 +42,7 @@ module.exports = {
         datasets: [{
           label: 'Value',
           data: data,
-          backgroundColor: data.map((a,i) => toRgbA(colors[i],0.8))[0],
+          backgroundColor: data.map((a,i) => helpers.toRgbA(colors[i],0.8))[0],
           borderColor: '#fff',
           borderWidth: 2
         }]

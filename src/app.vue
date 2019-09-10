@@ -1,23 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SustainBeef FarmDyn Report</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.1/dist/chartjs-plugin-deferred.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels" charset="utf-8"></script>
-  <script src="https://unpkg.com/http-vue-loader"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/Siddharth11/gradstop/gradstopUMD.js"></script>
-  <script src="./export.js"></script>
-</head>
-
-<body>
+<template lang="html">
   <div class="page" id="app">
     <!-- Page Hero -->
     <section class="hero left-tag">
@@ -103,8 +84,44 @@
       </div>
     </div>
   </div>
-  <script src="src/index.js"></script>
-</body>
+</template>
+
+<script>
+import data from './export.js'
+import helpers from './helpers.js'
+import bar from './components/bar.vue'
+import pie from './components/pie.vue'
+import stackedbar from './components/stacked-bar.vue'
+import stackedlines from './components/stacked-lines.vue'
+import fdtable from './components/table.vue'
+
+export default {
+  data() {
+      const additionals = {
+        enviOptions: {
+          scales: {
+            yAxes: [{
+              type: 'logarithmic'
+            }]
+          },
+          plugins: {
+            datalabels: {
+              display: false
+            }
+          }
+        }
+      }
+      return {...data,...additionals};
+  },
+  components: {
+    'bar': bar,
+    'pie': pie,
+    'stackedbar': stackedbar,
+    'stackedlines': stackedlines,
+    'fdtable': fdtable
+  }
+}
+</script>
 <style>
   @media print {
     .columns {
@@ -207,5 +224,3 @@
     margin-bottom: 10px;
   }
 </style>
-
-</html>
