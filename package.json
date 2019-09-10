@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prepare": "node prepare/data.js",
-    "serve": "serve",
+    "serve": "webpack-dev-server --mode development",
+    "build": "npm run clean && webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,6 +20,7 @@
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "babel-loader": "^8.0.6",
+    "bulma": "^0.7.5",
     "chart.js": "^2.8.0",
     "chartjs-plugin-deferred": "^1.0.1",
     "chartjs-plugin-piechart-outlabels": "^0.1.4",

@@ -20,20 +20,6 @@ module.exports = {
       'SEP', 'OCT', 'NOV', 'DEC'
     ]
   },
-  enviOptions() {
-    return {
-      scales: {
-        yAxes: [{
-          type: 'logarithmic'
-        }]
-      },
-      plugins: {
-        datalabels: {
-          display: false
-        }
-      }
-    }
-  },
   toRgbA(rgb, val) {
     const regExp = new RegExp(/\((.*)\)/)
     rgb = regExp.exec(rgb)[1]

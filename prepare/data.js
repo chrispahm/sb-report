@@ -91,9 +91,8 @@ module.exports = async (file) => {
                .map(zeile => [zeile['1'],zeile.Value])
                
     
-     const app = 
-    const exportString = `window.data = ${JSON.stringify(eD)}`
-    await writeFile('export.js', exportString,'utf8')
+    const exportString = `module.exports = ${JSON.stringify(eD)}`
+    await writeFile('src/export.js', exportString,'utf8')
     
     // if server is running, update graphs and pdf
     if (await serverRunning()) {

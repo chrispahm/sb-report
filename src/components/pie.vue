@@ -6,6 +6,8 @@
 </template>
 <script>
 import Chart from 'chart.js'
+import 'chartjs-plugin-piechart-outlabels'
+import _ from 'lodash'
 import helpers from '../helpers'
 Chart.defaults.global.defaultFontFamily = "'Raleway', sans-serif"
 
@@ -29,8 +31,8 @@ export default {
     var ctx = document.getElementById(this.id)
     var sorted = this.data.sort(function(a, b){return a[1] - b[1]})
     var data = sorted.map(d => d[1])
-    var labels = sorted.map(d => format(d[0]))
-    var colors = createColors(this.data.length)
+    var labels = sorted.map(d => helpers.format(d[0]))
+    var colors = helpers.createColors(this.data.length)
     var myChart = new Chart(ctx, {
       get type() {
         return 'outlabeledPie'
@@ -40,7 +42,7 @@ export default {
         labels: labels,
         datasets: [{
           data: data,
-          backgroundColor: data.map((a, i) => toRgbA(colors[i], 0.8)),
+          backgroundColor: data.map((a, i) => helpers.toRgbA(colors[i], 0.8)),
           borderColor: '#fff',
           borderWidth: 2
         }]

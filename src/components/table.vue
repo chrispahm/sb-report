@@ -19,6 +19,7 @@
 </template>
 <script>
 import helpers from '../helpers'
+import _ from 'lodash'
 
 export default {
   name: "fdtable",

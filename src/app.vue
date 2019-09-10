@@ -87,10 +87,41 @@
 </template>
 
 <script>
+import data from './export.js'
+import helpers from './helpers.js'
+import bar from './components/bar.vue'
+import pie from './components/pie.vue'
+import stackedbar from './components/stacked-bar.vue'
+import stackedlines from './components/stacked-lines.vue'
+import fdtable from './components/table.vue'
+
 export default {
+  data() {
+      const additionals = {
+        enviOptions: {
+          scales: {
+            yAxes: [{
+              type: 'logarithmic'
+            }]
+          },
+          plugins: {
+            datalabels: {
+              display: false
+            }
+          }
+        }
+      }
+      return {...data,...additionals};
+  },
+  components: {
+    'bar': bar,
+    'pie': pie,
+    'stackedbar': stackedbar,
+    'stackedlines': stackedlines,
+    'fdtable': fdtable
+  }
 }
 </script>
-
 <style>
   @media print {
     .columns {

@@ -6,6 +6,7 @@
 </template>
 <script>
 import Chart from 'chart.js'
+import _ from 'lodash'
 import helpers from '../helpers'
 Chart.defaults.global.defaultFontFamily = "'Raleway', sans-serif"
 
@@ -32,7 +33,7 @@ export default {
     var myChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: this.createLabels(data).map(l => format(l)),
+        labels: this.createLabels(data).map(l => helpers.format(l)),
         datasets: this.createDatasets(data)
       },
       options: {
@@ -48,8 +49,8 @@ export default {
     createLabels(data) {
       // sort labels if monthly
       let labels = _.uniq(data.map(d => d[0]))
-      if (shortMonths.indexOf(labels[0]) > -1) {
-        labels = _.sortBy(labels, [o => shortMonths.indexOf(o.toUpperCase())])
+      if (helpers.shortMonths().indexOf(labels[0]) > -1) {
+        labels = _.sortBy(labels, [o => helpers.shortMonths().indexOf(o.toUpperCase())])
       } 
       this.labels = labels
       return labels
@@ -65,17 +66,17 @@ export default {
           'animalExtraWork'
         ]
       }
-      const colors = createColors(stacks.length)
+      const colors = helpers.createColors(stacks.length)
       const datasets =  stacks.map((stack, i) => {
         return {
-          label: format(stack),
+          label: helpers.format(stack),
           data: this.labels.map(d => {
             const find = _.find(data, a => 
               a[0].toUpperCase() === d.toUpperCase() && a[1] === stack)
             return find ? find[2] : 0
           }),
-          backgroundColor: toRgbA(colors[i], 0.8),
-          borderColor: toRgbA(colors[i], 1),
+          backgroundColor: helpers.toRgbA(colors[i], 0.8),
+          borderColor: helpers.toRgbA(colors[i], 1),
           borderWidth: 1
         }
       })

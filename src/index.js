@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import App from './app.vue'
-import data from './export'
 
 function beforePrint() {
   setPrinting(true)
@@ -12,7 +11,7 @@ function afterPrint() {
 
 ;(function() {
   if (window.matchMedia) {
-    var mediaQueryList = window.matchMedia('print')
+    const mediaQueryList = window.matchMedia('print')
     mediaQueryList.addListener(function(mql) {
       if (mql.matches) {
         beforePrint()
@@ -39,6 +38,5 @@ function setPrinting(printing) {
 
 new Vue({
   el: '#app',
-  data: data,
   render: h => h(App)
 })

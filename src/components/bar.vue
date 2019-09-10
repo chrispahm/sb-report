@@ -6,6 +6,7 @@
 </template>
 <script>
 import Chart from 'chart.js'
+import _ from 'lodash'
 import helpers from '../helpers'
 Chart.defaults.global.defaultFontFamily = "'Raleway', sans-serif"
 
@@ -32,7 +33,7 @@ export default {
   mounted() {
     var ctx = document.getElementById(this.id)
     var data = this.data.map(d => d[1])
-    var labels = this.data.map(d => format(d[0]))
+    var labels = this.data.map(d => helpers.format(d[0]))
     var colors = helpers.createColors(this.data.length)
     var myChart = new Chart(ctx, {
       type: 'bar',
