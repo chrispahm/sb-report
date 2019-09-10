@@ -19,6 +19,7 @@
 </template>
 <script>
 import helpers from '../helpers'
+
 export default {
   name: "fdtable",
   props: {
