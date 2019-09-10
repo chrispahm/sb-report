@@ -47,8 +47,11 @@ module.exports = async (file) => {
     eD.sumHerd = data.p_sumHerd
                    .filter(zeile => zeile['3'] === 'No')
                    .map(zeile => [zeile['1'],zeile['2'],zeile.Value])
-    eD.envi = data.p_envi
+    eD.enviTot = data.p_envi
                 .filter(zeile => zeile['2'] === 'total')
+                .map(zeile => [zeile['1'],zeile.Value])
+    eD.enviBal = data.p_envi
+                .filter(zeile => zeile['2'] === 'balance')
                 .map(zeile => [zeile['1'],zeile.Value])
     eD.GWP = data.p_envi
                .filter(zeile => zeile['2'] === 'GWP')

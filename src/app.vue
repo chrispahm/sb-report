@@ -66,9 +66,10 @@
           <p>Environmental indicator Environmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicator</p>
         </div>
         <!-- Environment, bar -->
-        <bar class="column is-half" id="environmentalBar" title="Environmental Indicators" :data="envi" :options="enviOptions"></bar>
-        <pie class="column is-half" id="GWP" title="Source contribution GWP" :data="GWP"></pie>
+        <bar class="column is-half" id="environmentalBarTotal" title="Environmental Indicators Total" :data="enviTot" :options="enviOptions"></bar>
+        <bar class="column is-half" id="environmentalBarBalance" title="Environmental Indicators Balance" :data="enviBal" :options="enviOptions"></bar>
         <div class="break"></div>
+        <pie class="column is-half" id="GWP" title="Source contribution GWP" :data="GWP"></pie>
         <pie class="column is-half" id="PMFP" title="Source contribution PMFP" :data="PMFP"></pie>
         <pie class="column is-half" id="TAP" title="Source contribution TAP" :data="TAP"></pie>
         <pie class="column is-half" id="FEP" title="Source contribution FEP" :data="FEP"></pie>
