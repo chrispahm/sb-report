@@ -8,6 +8,7 @@
 <script>
 import Chart from 'chart.js'
 import 'chartjs-chart-radial-gauge'
+import 'chartjs-plugin-deferred'
 import tinygradient from 'tinygradient'
 import _ from 'lodash'
 import helpers from '../helpers'

@@ -10,7 +10,7 @@ const writeFile = util.promisify(fs.writeFile)
 const execPromise = util.promisify(exec)
 const copyFile = util.promisify(fs.copyFile)
 
-module.exports = async (file) => {
+module.exports = async (file,output) => {
   try {
     // ed = export Data
     const eD = {}
@@ -90,11 +90,11 @@ module.exports = async (file) => {
     const exportString = `module.exports = ${JSON.stringify(eD)}`
     await writeFile('src/export.js', exportString,'utf8')
     // build the project html and copy
-    await execPromise('npm run build')
+    await execPromise('node_modules/.bin/webpack --mode production', {cwd: __dirname + '/..'})
     // copy html to output dir
-    await copyFile('./dist/index.html', `./output/${path.basename(file,'.gdx')}.html`)
+    await copyFile('./dist/index.html', `${output}/${path.basename(file,'.gdx')}.html`)
     // create pdf report and images
-    await create(path.basename(file,'.gdx'))
+    await create(path.basename(file,'.gdx'),output)
   } catch (e) {
     console.log(e)
   }

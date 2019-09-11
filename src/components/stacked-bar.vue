@@ -6,6 +6,7 @@
 </template>
 <script>
 import Chart from 'chart.js'
+import 'chartjs-plugin-deferred'
 import _ from 'lodash'
 import helpers from '../helpers'
 Chart.defaults.global.defaultFontFamily = "'Raleway', sans-serif"

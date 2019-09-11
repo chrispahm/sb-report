@@ -4,7 +4,7 @@ const util = require('util')
 const writeFile = util.promisify(fs.writeFile)
 const mkdir = util.promisify(fs.mkdir)
 
-module.exports = async (farm) => {
+module.exports = async (farm,output) => {
   console.log('Currently working on the farm: ', farm)
   try {
     const browser = await puppeteer.launch({
@@ -13,9 +13,9 @@ module.exports = async (farm) => {
     })
     const page = await browser.newPage()
     
-    await page.goto(`file://${__dirname}/output/${farm}.html`)
+    await page.goto(`file://${output}/${farm}.html`)
     // save a PDF of the full output
-    writeFile(`output/${farm}.pdf`, await page.pdf({format: 'A4'}))
+    writeFile(`${output}/${farm}.pdf`, await page.pdf({format: 'A4'}))
     // get image urls for all graphs on the page
     const urls = await page.evaluate(async () => {
       // load canvas js
@@ -85,7 +85,7 @@ module.exports = async (farm) => {
     })
     // create output dir for the given farm
     try {
-      await mkdir(`output/${farm}`, {
+      await mkdir(`${output}/${farm}`, {
         recursive: true
       })
     } catch (e) {
@@ -94,7 +94,7 @@ module.exports = async (farm) => {
     // save all graphs to images
     for (var i = 0; i < urls.length; i++) {
       const viewSource = await page.goto(urls[i][0])
-      writeFile(`output/${farm}/${urls[i][1]}.png`, await viewSource.buffer())
+      writeFile(`${output}/${farm}/${urls[i][1]}.png`, await viewSource.buffer())
       // don't save svg for now as the output is rather buggy
       // writeFile(`output/${farm}/${urls[i][1]}.svg`, urls[i][2],'utf8')
     }
