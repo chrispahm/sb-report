@@ -2,10 +2,10 @@
   "name": "sb-report",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "create": "node main.js",
-    "serve": "webpack-dev-server --mode development",
+    "dev": "webpack-dev-server --mode development",
     "build": "webpack --mode production"
   },
   "author": "",

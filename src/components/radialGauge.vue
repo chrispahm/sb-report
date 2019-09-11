@@ -73,7 +73,7 @@ export default {
         '#db4e3b'
       ])
       const color = gradient.rgbAt(val)._originalInput
-      return `rgba(${color.r},${color.g},${color.b},${color.a})`
+      return `rgb(${color.r},${color.g},${color.b})`
     }
   }
 }
