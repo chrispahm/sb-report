@@ -41,7 +41,8 @@ export default {
           yAxes: [{
             stacked: true
           }]
-        }
+        },
+        tooltips: helpers.tooltips()
       }
     })
   },

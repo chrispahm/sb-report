@@ -36,6 +36,24 @@ module.exports = {
     } catch (e) {
       return string
     }
+  },
+  tooltips() {
+    return {
+      callbacks: {
+        label(tooltipItem, data) {
+          let label = data.datasets[tooltipItem.datasetIndex].label || ''
+
+          if (label) {
+            label += ': '
+          }
+          // get value
+          const value = data.datasets[tooltipItem.datasetIndex]
+                            .data[tooltipItem.index]
+          label += Math.round(value * 100) / 100
+          return label
+        }
+      }
+    }
   }
 }
 

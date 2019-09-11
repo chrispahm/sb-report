@@ -48,13 +48,7 @@ export default {
         }]
       },
       options: {
-        tooltips: {
-           mode: 'label',
-           label: 'mylabel',
-           callbacks: {
-             label(tooltipItem, data) {
-               return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }, },
-        },
+        tooltips: helpers.tooltips(),
         plugins: {
           outlabels: {
             text: '%l %v',

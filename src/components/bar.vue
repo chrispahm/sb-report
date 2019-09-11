@@ -47,7 +47,9 @@ export default {
           borderWidth: 2
         }]
       },
-      options: this.options
+      options: this.options || {
+        tooltips: helpers.tooltips()
+      }
     })
   }
 }
