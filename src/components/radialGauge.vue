@@ -8,6 +8,7 @@
 <script>
 import Chart from 'chart.js'
 import 'chartjs-chart-radial-gauge'
+import tinygradient from 'tinygradient'
 import _ from 'lodash'
 import helpers from '../helpers'
 
@@ -30,15 +31,16 @@ export default {
     }
   },
   mounted() {
-    var ctx = document.getElementById(this.id)
-    var myChart = new Chart(ctx, {
+    const ctx = document.getElementById(this.id)
+    const color = this.getColor(this.data[0])
+    new Chart(ctx, {
       type: 'radialGauge',
       data: {
         labels: [this.title],
         datasets: [{
           label: "Value",
           data: [this.data[0] * 100],
-          backgroundColor: '#55854c',
+          backgroundColor: color,
           borderColor: '#fff',
           borderWidth: 2
         }]
@@ -46,7 +48,7 @@ export default {
       options: {
         trackColor: '#f5f5f5',
         roundedCorners: false,
-        centerPercentage: 80,
+        centerPercentage: 75,
         centerArea: {
           fontFamily: 'Raleway',
           text(value, options) {
@@ -61,12 +63,23 @@ export default {
         tooltips: {enabled: false}
       }
     })
+  },
+  methods: {
+    getColor(val) {
+      const gradient = tinygradient([
+        '#55854c',
+        '#f7e040',
+        '#db4e3b'
+      ])
+      const color = gradient.rgbAt(val)._originalInput
+      return `rgba(${color.r},${color.g},${color.b},${color.a})`
+    }
   }
 }
 </script>
 
 <style lang="css" scoped>
 .gauge {
-  padding: 40px;
+  padding: 50px;
 }
 </style>

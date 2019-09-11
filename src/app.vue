@@ -113,6 +113,7 @@ export default {
               }
             }]
           },
+          tooltips: helpers.tooltips(),
           plugins: {
             datalabels: {
               display: false

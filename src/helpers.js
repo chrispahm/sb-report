@@ -47,9 +47,10 @@ module.exports = {
             label += ': '
           }
           // get value
+          const formatter = new Intl.NumberFormat('en-GB')
           const value = data.datasets[tooltipItem.datasetIndex]
                             .data[tooltipItem.index]
-          label += Math.round(value * 100) / 100
+          label += formatter.format(Math.round(value * 100) / 100)
           return label
         }
       }

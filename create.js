@@ -36,9 +36,10 @@ module.exports = async (farm) => {
         })
       })()
       // fix some bugs in C2S -> https://stackoverflow.com/questions/45563420/exporting-chart-js-charts-to-svg-using-canvas2svg-js
-      ; (() => { C2S.prototype.getContext = function(contextId) { if (contextId == "2d" || contextId == "2D") { return this; } return null; }; C2S.prototype.style = function() { return this.__canvas.style }; C2S.prototype.getAttribute = function(name) { return this[name]; }; C2S.prototype.addEventListener = function() { console.log("canvas2svg.addEventListener() not implemented.") }; })()
+      // ; (() => { C2S.prototype.getContext = function(contextId) { if (contextId == "2d" || contextId == "2D") { return this; } return null; }; C2S.prototype.style = function() { return this.__canvas.style }; C2S.prototype.getAttribute = function(name) { return this[name]; }; C2S.prototype.addEventListener = function() { console.log("canvas2svg.addEventListener() not implemented.") }; })()
       const urls = []
       Chart.defaults.global.maintainAspectRatio = false;
+      
       function makeChart(chart) {
         urls.push(new Promise((resolve) => {
           // create png image with increase size
@@ -62,17 +63,19 @@ module.exports = async (farm) => {
           var newChart = new Chart(ctx, chart.config)
 
           // create svg image
+          /*
           Chart.defaults.global.defaultFontSize = 12;
           chart.config.options.plugins.outlabels.font.minSize = null
           var svgContext = C2S(388, 388)
           chart.config.options.responsive = false
           new Chart(svgContext, chart.config)
           let svg = svgContext.getSerializedSvg(true)
+          */
           setTimeout(() => {
             resolve([
               newChart.toBase64Image(), 
-              chart.canvas.id, 
-              svg
+              chart.canvas.id
+              // svg
             ])
           }, 100)
         }))
