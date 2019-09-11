@@ -1,13 +1,16 @@
 # SustainBeef Report Generator
 
 ## Installation
+1. (Only after first download) Double click `install.cmd`
+2. In order to create the outputs, double click `prepare.cmd`
+3. Start the Live Server by clicking `run.cmd`
 
-You need to have Node.js installed on your computer.
-https://nodejs.org/en/
+## Running with FarmDyn
 
-0. (Optional): Update the `.gdx` files in the `input` folder
-1. Open a terminal (Command Prompt on Windows (`cmd`))
-2. Navigate to the folder where `sb-report` resides (e.g. `cd C:/USERS/%USERPROFILE%/Documents/sb-report`)
-3. Type `npm run create` and hit enter.
+At the very end of the `exp_starter.gms` file, copy and adjust the following code:
 
-The output files will be saved to the `output` folder.
+```gams
+execute 'cd C:\USERS\%USERPROFILE%\Documents\sb-report && node main.js %Resdir%\SustainBeef\%scenDes%.gdx %Resdir%\SustainBeef';
+```
+
+Make sure the FarmDyn `Results` has a `SustainBeef` subfolder. If it does not, first create it. 
