@@ -1,2 +1,2 @@
-start "" /d "N:\em\work1\Pahmeyer\sb-report" N:\em\work1\Pahmeyer\Node\npx serve 
-start "" /d "N:\em\work1\Pahmeyer\sb-report" explorer "http://localhost:5000" 
+IF EXIST N:\em\work1\Pahmeyer\Node SET PATH=%PATH%;N:\em\work1\Pahmeyer\Node
+call npm run dev

@@ -30,7 +30,7 @@ module.exports = async (file,output) => {
     eD.inputQuant = data.p_other
                       .filter(d => d['1'] === 'inputQuant')
                       .map(d => [d['2'],d.Value])
-    eD.feedHerdsByMonth = 
+    eD.feedHerdsByMonth =
       _.groupBy(data.p_other
                   .filter(d => d['3'] === 'Feed')
                   .map(d => [d['1'],d['2'],d['4'],d.Value]), a => a[1]
@@ -78,19 +78,20 @@ module.exports = async (file,output) => {
                .filter(zeile => zeile['3'] === 'Calorie')
                .map(zeile => [zeile['1'],zeile.Value])
     eD.labProfit = data.p_econ
-                    .filter(zeile => zeile['1'] === 'Profitability')     
-                    .map(zeile => [zeile['1'],zeile.Value])  
+                    .filter(zeile => zeile['1'] === 'Profitability')
+                    .map(zeile => [zeile['1'],zeile.Value])
     eD.autoSharePrem = data.p_econ
-                    .filter(zeile => zeile['2'] === 'shareprem')     
-                    .map(zeile => zeile.Value)  
+                    .filter(zeile => zeile['2'] === 'shareprem')
+                    .map(zeile => zeile.Value)
     eD.autoShareInput = data.p_econ
-                    .filter(zeile => zeile['2'] === 'shareInput')     
-                    .map(zeile => zeile.Value)      
-    
+                    .filter(zeile => zeile['2'] === 'shareInput')
+                    .map(zeile => zeile.Value)
+
     const exportString = `module.exports = ${JSON.stringify(eD)}`
     await writeFile('src/export.js', exportString,'utf8')
     // build the project html and copy
-    await execPromise('node_modules/.bin/webpack --mode production', {cwd: __dirname + '/..'})
+    const delim = path.sep
+    await execPromise(`.${delim}node_modules${delim}.bin${delim}webpack --mode production`, {cwd: __dirname + '/..'})
     // copy html to output dir
     await copyFile('./dist/index.html', `${output}/${path.basename(file,'.gdx')}.html`)
     // create pdf report and images

@@ -5,12 +5,12 @@
   "main": "main.js",
   "scripts": {
     "create": "node main.js",
-    "dev": "webpack-dev-server --mode development",
+    "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "babel-loader": "^8.0.6",
@@ -31,9 +31,7 @@
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.0"
-  },
-  "dependencies": {
+    "webpack-dev-server": "^3.8.0",
     "tinygradient": "^1.0.0"
   }
 }
