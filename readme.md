@@ -2,8 +2,9 @@
 
 ## Installation
 1. (Only after first download) Double click `install.cmd`
-2. In order to create the outputs, double click `prepare.cmd`
-3. Start the Live Server by clicking `run.cmd`
+2. Make sure that you have the SustainBeef outputfiles included in the exp_starter.gms
+3. In order to create the outputs, double click `prepare.cmd`
+4. Start the Live Server by clicking `run.cmd`
 
 ## Running with FarmDyn
 
