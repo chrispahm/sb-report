@@ -5,17 +5,30 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
   entry: './src/index.js',
   module: {
-    rules: [
-      { test: /\.js$/, use: 'babel-loader' },
-      { test: /\.vue$/, use: 'vue-loader' },
-      { test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
+    rules: [{
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ["@babel/preset-env"]
+          }
+        }
+      },
+      {
+        test: /\.vue$/,
+        use: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ['vue-style-loader', 'css-loader']
+      },
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-  		inlineSource: '.(js|css)$' // embed all javascript and css inline
-  	}),
+      inlineSource: '.(js|css)$' // embed all javascript and css inline
+    }),
     new HtmlWebpackInlineSourcePlugin(),
     new VueLoaderPlugin(),
   ]

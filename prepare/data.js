@@ -95,7 +95,7 @@ module.exports = async (file,output) => {
     // copy html to output dir
     await copyFile('./dist/index.html', `${output}/${path.basename(file,'.gdx')}.html`)
     // create pdf report and images
-    await create(path.basename(file,'.gdx'),output)
+    // await create(path.basename(file,'.gdx'),output)
   } catch (e) {
     console.log(e)
   }

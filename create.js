@@ -17,6 +17,7 @@ module.exports = async (farm,output) => {
     // save a PDF of the full output
     writeFile(`${output}/${farm}.pdf`, await page.pdf({format: 'A4'}))
     // get image urls for all graphs on the page
+    /*
     const urls = await page.evaluate(async () => {
       // load canvas js
       ; await (async () => {
@@ -63,6 +64,7 @@ module.exports = async (farm,output) => {
           var newChart = new Chart(ctx, chart.config)
 
           // create svg image
+          */
           /*
           Chart.defaults.global.defaultFontSize = 12;
           chart.config.options.plugins.outlabels.font.minSize = null
@@ -71,6 +73,7 @@ module.exports = async (farm,output) => {
           new Chart(svgContext, chart.config)
           let svg = svgContext.getSerializedSvg(true)
           */
+          /*
           setTimeout(() => {
             resolve([
               newChart.toBase64Image(), 
@@ -98,6 +101,7 @@ module.exports = async (farm,output) => {
       // don't save svg for now as the output is rather buggy
       // writeFile(`output/${farm}/${urls[i][1]}.svg`, urls[i][2],'utf8')
     }
+    */
     await browser.close()
   } catch (e) {
     console.log(e)
