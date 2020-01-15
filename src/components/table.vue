@@ -55,6 +55,8 @@ export default {
       })
       if (this.isEcon && !isNaN(Number(cell)) && cell) {
         return formatter.format(cell)
+      } else if (!isNaN(Number(cell)) && Number(cell) > 100000000 ) {
+        return 'inf'
       } else if (!isNaN(Number(cell)) && cell) {
         return _.round(cell,2).toLocaleString('en-GB')
       }
