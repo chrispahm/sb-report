@@ -15,7 +15,7 @@ module.exports = async (file,output) => {
     // ed = export Data
     const eD = {}
     const data = await gdx.read(file)
-
+    eD.name = path.basename(file, '.gdx')
     eD.cropHa = data.p_crop
                   .filter(d => d['1'] === 'cropHA')
                   .map(d => [d['2'],d.Value])

@@ -3,14 +3,16 @@ const gradstop = require('gradstop')
 module.exports = {
   createColors(length) {
     if (length === 1) {
-      return ['rgb(0, 63, 92)']
+      return ['rgb(120, 193, 168)']
     } else if (length === 2) {
-      return ['rgb(0, 63, 92)', 'rgb(238, 122, 23)']
+      return ['rgb(120, 193, 168)', 'rgb(238, 122, 23)']
+    } else if (length === 3) {
+      return ['rgb(120, 193, 168)', 'rgb(201,158,103)', 'rgb(238, 122, 23)']
     }
     return gradstop({
       stops: length,
       inputFormat: 'hex',
-      colorArray: ['#003f5c', '#8a498e', '#ef7a17']
+      colorArray: ['#3e5071', '#77c1a7', '#ef7a17']
     })
   },
   shortMonths() {

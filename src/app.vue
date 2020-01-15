@@ -26,7 +26,7 @@
       <!-- Page Header -->
       <div class="summary-box has-text-white">
         <h3 class="title is-3 has-text-white">Simulation Summary</h3>
-        <p>General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator General indicator</p>
+        <p>{{ summary }}</p>
       </div>
       <!-- Sub Pages/Graph Section -->
       <div class="columns is-multiline">
@@ -50,7 +50,7 @@
       <div class="break"></div>
       <div class="summary-box has-text-white" id="economics_box">
         <h3 class="title is-3 has-text-white">Economic indicator</h3>
-        <p>Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator Economic indicator</p>
+        <p>{{econSummary}}</p>
       </div>
       <div class="columns is-multiline">
         <!-- Economics, tabelle-->
@@ -66,7 +66,7 @@
       <div class="break"></div>
       <div class="summary-box has-text-white" id="environmental_box">
         <h3 class="title is-3 has-text-white">Environmental indicator</h3>
-        <p>Environmental indicator Environmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicatorEnvironmental indicator</p>
+        <p>{{enviSummary}}</p>
       </div>
       <div class="columns is-multiline">
         <!-- Environment, bar -->
@@ -81,7 +81,7 @@
       <div class="break"></div>
       <div class="summary-box has-text-white" id="social_box">
         <h3 class="title is-3 has-text-white">Social indicator</h3>
-        <p>Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator Social indicator</p>
+        <p>{{sociSummary}}</p>
       </div>
       <div class="columns is-multiline">
         <!-- Social - stacked lines -->
@@ -95,7 +95,11 @@
 </template>
 
 <script>
-import data from './export.js'
+import gdxData from './export.js'
+import summaryDescription from './createSummaryDescription.js'
+import economicDescription from './createEconomicDescription.js'
+import enviDescription from './createEnvironmentalDescription.js'
+import sociDescription from './createSocialSummaryDescription.js'
 import helpers from './helpers.js'
 import bar from './components/bar.vue'
 import pie from './components/pie.vue'
@@ -107,6 +111,10 @@ import radial from './components/radialGauge.vue'
 export default {
   data() {
       const additionals = {
+        summary: summaryDescription.summary(gdxData),
+        econSummary: economicDescription(gdxData),
+        enviSummary: enviDescription(gdxData),
+        sociSummary: sociDescription(gdxData),
         enviOptions: {
           scales: {
             yAxes: [{
@@ -125,7 +133,7 @@ export default {
           }
         }
       }
-      return {...data,...additionals};
+      return {...gdxData,...additionals};
   },
   components: {
     'bar': bar,
