@@ -1,7 +1,7 @@
 module.exports = {
   summary(data) {
-    const country = data.name.substring(0,2)
-    let description = this.getIntro(data.name)
+    const country = data.name.substring(0,2).toUpperCase()
+    let description = this.getIntro(data.name, country)
     description += this.getHerdDescription(data.sumHerd)
     description +=  this.getLuDesc(data.lu, country)
     description += this.getCrops(data.cropHa, country)
@@ -27,7 +27,8 @@ module.exports = {
     }
   },
   getCrops(cropHa, country) {
-    const crops = cropHa.filter(c => !c[0].includes('idle'))
+    const crops = cropHa.filter(c => !c[0].includes('idle')).sort((a,b) => b[1] - a[1])
+    console.log(crops);
     const arabCrops = crops.filter(c => !c[0].includes('gras'))
     const grasCrops = crops.filter(c => c[0].includes('gras'))
     const silage = crops.filter(c => c[0].includes('sil'))
@@ -55,7 +56,7 @@ module.exports = {
     else if (crop.includes('graz')) return 'grass for grazing as a feedstock'
     else if (crop.includes('hay')) return 'hay as a feedstock'
     else if (crop === 'WinterWheat') return 'winter wheat for sale'
-    else if (crop === 'maizSil') return 'maize silage as a feedstock'
+    else if (crop === 'maizSil' || crop === 'MaizSil') return 'maize silage as a feedstock'
     else return crop
   },
   getLuDesc(lu, country) {
@@ -87,32 +88,50 @@ module.exports = {
     return countries[country]
   },
   getHerdDescription(sumHerd) {
-    const relevant = ['motherCow','cows','bullsSold']
-    const herds = sumHerd.filter(h => relevant.includes(h[0]))
+    const relevant = ['sucklerCows','cows','bullsSold']
+    const breedsMapping = {
+      SalChar: 'Saler x Charolais',
+      MontCha: 'Montbeliarde x Charolais',
+      CrossBulls: ''
+    }
+    
+    const baseHerds = sumHerd.filter(h => relevant.includes(h[0]) && !(h[1] in breedsMapping))
+    const crossHerds = sumHerd.filter(h => relevant.includes(h[0]) && (h[1] in breedsMapping))
+    // check if duplicate bulls exist
     const names = {
-      motherCow: 'suckler cows',
+      sucklerCows: 'suckler cows',
       cows: 'cows',
       bullsSold: 'bulls'
     }
-    if (herds.length === 3) {
-      return `${Math.round(herds[0][2])} ${names[herds[0][0]]}, ${Math.round(herds[1][2])} ${names[herds[1][0]]}, and ${Math.round(herds[2][2])} ${names[herds[2][0]]}. `
-    } else if (herds.length === 2) {
-      return `${Math.round(herds[0][2])} ${names[herds[0][0]]}, and ${Math.round(herds[1][2])} ${names[herds[1][0]]}. `
-    } else if (herds.length === 1) {
-      return `${Math.round(herds[0][2])} ${names[herds[0][0]]}. `
-    } else {
-      return 'no animals. '
+    
+
+    let herdText = ''
+    
+    if (baseHerds.length === 3) {
+      herdText += `${Math.round(baseHerds[0][2])} ${names[baseHerds[0][0]]}, ${Math.round(baseHerds[1][2])} ${names[baseHerds[1][0]]}, and ${Math.round(baseHerds[2][2])} ${names[baseHerds[2][0]]}. `
+    } else if (baseHerds.length === 2) {
+      herdText += `${Math.round(baseHerds[0][2])} ${names[baseHerds[0][0]]}, and ${Math.round(baseHerds[1][2])} ${names[baseHerds[1][0]]}. `
+    } else if (baseHerds.length === 1) {
+      herdText += `${Math.round(baseHerds[0][2])} ${names[baseHerds[0][0]]}. `
+    } 
+    
+    if (crossHerds.length && herdText) {
+      herdText += `In addition, ${Math.round(crossHerds[0][2])} crossbred ${breedsMapping[crossHerds[0][1]]} ${names[crossHerds[0][0]]} were sold annually. `
+    } else if (crossHerds.length) {
+      herdText += `${Math.round(crossHerds[0][2])} crossbred ${breedsMapping[crossHerds[0][1]]} ${names[crossHerds[0][0]]}. `
+    } else if (!herdText) {
+      herdText += 'no animals. '
     }
+    return herdText
   },
-  getIntro(name) {
+  getIntro(name, country) {
     const rand = Math.random()
-    const country = this.countries(name.substring(0,2))
     if (rand < 0.33) {
-      return `In the baseline scenario, the ${this.countriesDecl(name.substring(0,2))} farm "${name}" is herding `
+      return `In the baseline scenario, the ${this.countriesDecl(country)} farm "${name}" is herding `
     } else if (rand < 0.66) {
-      return `The case-study farm "${name}" based in ${country} was simulated to herd `
+      return `The case-study farm "${name}" based in ${this.countries(country)} was simulated to herd `
     } else {
-      return `In the FarmDyn simulation, the ${this.countriesDecl(name.substring(0,2))} case-study farm "${name}" herds a baseline average of `
+      return `In the FarmDyn simulation, the ${this.countriesDecl(country)} case-study farm "${name}" herds a baseline average of `
     }
   },
   countries(country) {

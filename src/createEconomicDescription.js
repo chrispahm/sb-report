@@ -5,7 +5,7 @@ module.exports = (data) => {
     })
     const revenues = Math.round(data.profitFct.find(p => p[0] === 'Revenues')[2])
     const share = Math.round(Math.round(data.profitFct.find(p => p[0] === 'RevenuesAnimals')[2]) / revenues * 100)
-    const hasArab  = data.cropHa.filter(c => !c[0].includes('gras')).length ? true : false
+    const hasArab  = data.cropHa.filter(c => !c[0].includes('gras') && !c[0].includes('MaizSil')).length ? true : false
     const varCost = Math.round(data.profitFct.find(p => p[0] === 'sumVarCost')[2])
     const profits = Math.round(data.profitFct.find(p => p[0] === 'Profit(Euro)')[2])
     const caseStudy = data.name

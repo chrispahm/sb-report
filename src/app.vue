@@ -5,7 +5,7 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            SustainBeef FarmDyn Report
+            SustainBeef FarmDyn Report - {{name}}
           </h1>
           <h2 class="subtitle">
             Deliverable 3.3
