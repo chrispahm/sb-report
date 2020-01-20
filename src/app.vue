@@ -246,4 +246,22 @@ export default {
     margin-top: 30px;
     margin-bottom: 10px;
   }
+  
+  @media screen and (max-width: 768px) {
+    .page {
+      width: 100%;
+      margin: 0px;
+      border-radius: none;
+      min-height: unset;
+    }
+    
+    .subpage {
+      padding: 10px;
+      min-height: unset;
+    }
+    
+    .subpage .tab {
+      border-left: none;
+    }
+  }
 </style>
