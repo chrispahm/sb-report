@@ -137,7 +137,7 @@ module.exports = {
   countries(country) {
     const countries = {
       IE: 'Ireland',
-      DE: 'Germany',
+      GE: 'Germany',
       FR: 'France',
       BE: 'Belgium',
       IT: 'Italy'
@@ -147,7 +147,7 @@ module.exports = {
   countriesDecl(country) {
     const countries = {
       IE: 'Irish',
-      DE: 'German',
+      GE: 'German',
       FR: 'French',
       BE: 'Belgian',
       IT: 'Italian'

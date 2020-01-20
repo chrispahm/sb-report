@@ -93,7 +93,7 @@ module.exports = async (file,output) => {
     const delim = path.sep
     await execPromise(`.${delim}node_modules${delim}.bin${delim}webpack --mode production`, {cwd: __dirname + '/..'})
     // copy html to output dir
-    await copyFile('./dist/index.html', `${output}/${path.basename(file,'.gdx')}.html`)
+    await copyFile('./dist/index.html', `${output}/${path.basename(file,'.gdx').toUpperCase()}.html`)
     // create pdf report and images
     // await create(path.basename(file,'.gdx'),output)
   } catch (e) {
