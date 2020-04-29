@@ -1,7 +1,7 @@
 module.exports = {
   summary(data) {
     const country = data.name.substring(0,2).toUpperCase()
-    let description = this.getIntro(data.name, country)
+    let description = this.getIntro(data.name, data.scenario, country)
     description += this.getHerdDescription(data.sumHerd)
     description +=  this.getLuDesc(data.lu, country)
     description += this.getCrops(data.cropHa, country)
@@ -23,7 +23,7 @@ module.exports = {
     } else if (rand < 0.66) {
       return `Approximately ${Math.round(data.autoSharePrem * 100)}% of the farms overall revenue originate from coupled and single farm premium schemes.`
     } else {
-      return `With the herd sizes and crop shares previously described, a yearly workload of ${Math.round(data.work1.find(d => d[0] === 'totWork')[1])} hours was estimated in the baseline scenario.`
+      return `With the herd sizes and crop shares previously described, a yearly workload of ${Math.round(data.work1.find(d => d[0] === 'totWork')[1])} hours was estimated in the ${data.scenario} scenario.`
     }
   },
   getCrops(cropHa, country) {
@@ -124,14 +124,14 @@ module.exports = {
     }
     return herdText
   },
-  getIntro(name, country) {
+  getIntro(name, scenario, country) {
     const rand = Math.random()
     if (rand < 0.33) {
-      return `In the baseline scenario, the ${this.countriesDecl(country)} farm "${name}" is herding `
+      return `In the ${scenario} scenario, the ${this.countriesDecl(country)} farm "${name}" is herding `
     } else if (rand < 0.66) {
       return `The case-study farm "${name}" based in ${this.countries(country)} was simulated to herd `
     } else {
-      return `In the FarmDyn simulation, the ${this.countriesDecl(country)} case-study farm "${name}" herds a baseline average of `
+      return `In the FarmDyn simulation of the ${scenario} scenario, the ${this.countriesDecl(country)} case-study farm "${name}" herds an average of `
     }
   },
   countries(country) {

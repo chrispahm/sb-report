@@ -9,9 +9,10 @@ function groupFiles(array) {
   const mapped = array.map(filename => filename.replace(".gdx","").split("_"))
   const groups = _.groupBy(mapped, map => map[0])
   Object.keys(groups).forEach(key => groups[key] = groups[key].map(arr => {
-    if (arr.length === 1) return { scenario: 'Baseline', filename: `./input/${arr[0]}.gdx`}
+    if (arr.length === 1) return { scenario: 'Baseline', caseStudy: arr[0], filename: `./input/${arr[0]}.gdx`}
     else return {
       scenario: arr.slice(1).join(" "),
+      caseStudy: arr[0],
       filename: `./input/${arr.join("_")}.gdx`
     }
   }))

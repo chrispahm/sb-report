@@ -16,7 +16,7 @@ async function readGDX(files) {
     const eD = containerObj[files[i].scenario] = {}
     const file = files[i].filename
     const data = await gdx.read(file)
-    eD.name = path.basename(file, '.gdx')
+    eD.name = files[i].caseStudy
     eD.scenario = files[i].scenario
     eD.cropHa = data.p_crop
                   .filter(d => d['1'] === 'cropHA')

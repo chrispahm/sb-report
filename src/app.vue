@@ -16,18 +16,21 @@
     <div v-if="gdxData" style="text-align: center; line-height: 36px;">
       Currently selected scenario:
       <div class="select">
-        <select class="" name="">
-          <option v-for="scenario in gdxData" :value="scenario">{{ scenario.scenario }}</option>
+        <select class="" v-model="selected">
+          <option v-for="(obj, scenario) in gdxData" :value="scenario">{{ obj.scenario }}</option>
         </select>
       </div>
     </div>
-    <baseline :gdxData="gdxData.Baseline"/>
+    <baseline v-if="baselineShown" :gdxData="gdxData.Baseline"/>
+    <innovations v-else :gdxData="gdxData[selected]" :key="selected"/>
   </div>
 </template>
 
 <script>
 import gdxData from './export.js'
 import baseline from './baseline.vue'
+import innovations from './innovations.vue'
+
 export default {
   data() {
     return {
@@ -37,15 +40,24 @@ export default {
   },
   computed: {
     name() {
-      if (gdxData && gdxData.Baseline) return gdxData.Baseline.name
+      if (this.gdxData && gdxData.Baseline) return gdxData.Baseline.name
       else return "-"
+    },
+    innovations() {
+      if (this.gdxData) return Object.keys(this.gdxData).slice(1)
+      else return []
+    },
+    baselineShown() {
+      if (this.selected === "Baseline") return true
+      else return false
     }
   },
   created() {
     console.log(Object.keys(gdxData));
   },
   components: {
-    'baseline': baseline
+    baseline,
+    innovations
   }
 }
 </script>
