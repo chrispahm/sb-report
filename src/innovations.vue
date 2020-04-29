@@ -99,12 +99,6 @@ export default {
       required: true
     }
   },
-  watch: {
-    gdxData: function (old, newData) {
-      console.log('changed');
-      this.$forceUpdate()
-    }
-  },
   data() {
       const additionals = {
         summary: summaryDescription.summary(this.gdxData),

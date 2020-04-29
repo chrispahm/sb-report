@@ -126,12 +126,20 @@ module.exports = {
   },
   getIntro(name, scenario, country) {
     const rand = Math.random()
-    if (rand < 0.33) {
-      return `In the ${scenario} scenario, the ${this.countriesDecl(country)} farm "${name}" is herding `
-    } else if (rand < 0.66) {
-      return `The case-study farm "${name}" based in ${this.countries(country)} was simulated to herd `
+    if (scenario === 'Baseline') {
+      if (rand < 0.33) {
+        return `In the baseline scenario, the ${this.countriesDecl(country)} farm "${name}" is herding `
+      } else if (rand < 0.66) {
+        return `The case-study farm "${name}" based in ${this.countries(country)} was simulated to herd `
+      } else {
+        return `In the FarmDyn simulation, the ${this.countriesDecl(country)} case-study farm "${name}" herds an average of `
+      }
     } else {
-      return `In the FarmDyn simulation of the ${scenario} scenario, the ${this.countriesDecl(country)} case-study farm "${name}" herds an average of `
+      if (rand < 0.66) {
+        return `In the ${scenario} scenario, the farm is herding `
+      } else {
+        return `In the FarmDyn simulation of the ${scenario} scenario, the farm herds an average of `
+      }
     }
   },
   countries(country) {
