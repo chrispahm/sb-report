@@ -25,8 +25,9 @@ function groupFiles(array) {
   if (inputFile && outputDir) {
     await prepare([{
       scenario: 'Baseline',
+      caseStudy: path.basename(inputFile,'.gdx'),
       filename: inputFile
-    }],outputDir)
+    }], outputDir)
   } else {
     // do local report
     let files = await readDir('input')
