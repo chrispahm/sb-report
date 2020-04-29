@@ -2,6 +2,7 @@ const gradstop = require('gradstop')
 
 module.exports = {
   createColors(length) {
+    if (length === 0) return
     if (length === 1) {
       return ['rgb(120, 193, 168)']
     } else if (length === 2) {

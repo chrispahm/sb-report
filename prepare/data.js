@@ -3,19 +3,21 @@ const {exec} = require('child_process')
 const fs = require('fs')
 const _ = require('lodash')
 const util = require('util')
-const path = require('path')
 const create = require('../create')
+const path = require('path')
 
 const writeFile = util.promisify(fs.writeFile)
 const execPromise = util.promisify(exec)
 const copyFile = util.promisify(fs.copyFile)
 
-module.exports = async (file,output) => {
-  try {
-    // ed = export Data
-    const eD = {}
+async function readGDX(files) {
+  const containerObj = {}
+  for (var i = 0; i < files.length; i++) {
+    const eD = containerObj[files[i].scenario] = {}
+    const file = files[i].filename
     const data = await gdx.read(file)
-    eD.name = path.basename(file, '.gdx')
+    eD.name = files[i].caseStudy
+    eD.scenario = files[i].scenario
     eD.cropHa = data.p_crop
                   .filter(d => d['1'] === 'cropHA')
                   .map(d => [d['2'],d.Value])
@@ -86,14 +88,21 @@ module.exports = async (file,output) => {
     eD.autoShareInput = data.p_econ
                     .filter(zeile => zeile['2'] === 'shareInput')
                     .map(zeile => zeile.Value)
+  }
+  return containerObj
+}
 
+module.exports = async (files,output) => {
+  try {
+    // ed = export Data
+    const eD = await readGDX(files)
     const exportString = `module.exports = ${JSON.stringify(eD)}`
     await writeFile('src/export.js', exportString,'utf8')
     // build the project html and copy
     const delim = path.sep
     await execPromise(`.${delim}node_modules${delim}.bin${delim}webpack --mode production`, {cwd: __dirname + '/..'})
     // copy html to output dir
-    await copyFile('./dist/index.html', `${output}/${path.basename(file,'.gdx').toUpperCase()}.html`)
+    await copyFile('./dist/index.html', `${output}/${path.basename(files[0].filename,'.gdx').toUpperCase()}.html`)
     // create pdf report and images
     // await create(path.basename(file,'.gdx'),output)
   } catch (e) {
