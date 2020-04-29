@@ -1,6 +1,7 @@
 module.exports = (data) => {
-
-    const gwp = Math.round(data.enviTot.find(p => p[0] === 'GWP')[1])
+    const value = data.enviTot.find(p => p[0] === 'GWP')
+    if (!value) return
+    const gwp = Math.round(value[1])
     const totMeat = Math.round(data.soldOutputQuant.filter(o => o[0].includes('Meat')).reduce((acc,val) => {
       acc += val[1]
       return acc
