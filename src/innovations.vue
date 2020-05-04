@@ -8,8 +8,8 @@
     <div class="columns is-multiline">
       <percent class="column is-half" id="relProfitChange" title="Profit change" :finalValue="profitChange"></percent>
       <percent class="column is-half" id="relGWPChange" title="GWP change" :finalValue="GWPChange"></percent>
-      <percent class="column is-half" id="relProtChange" title="Protein efficiency" :finalValue="GWPChange"></percent>
-      <percent class="column is-half" id="relProtChange" title="Calorie efficiency" :finalValue="GWPChange"></percent>
+      <percent class="column is-half" id="relProtChange" title="Protein efficiency" :finalValue="protChange"></percent>
+      <percent class="column is-half" id="relProtChange" title="Calorie efficiency" :finalValue="calChange"></percent>
     </div>
     <br>
     <!-- Page Header -->
@@ -189,12 +189,32 @@ export default {
         return 0
       }
     },
+    protChange() {
+      if (this.relValues && this.relValues.calorie) {
+        const value = this.relValues.calorie.find(p => p[0] === 'ProtFeed')
+        if (!value) return 0
+        return value[1]  - 1
+      } else {
+        return 0
+      }
+    },
+    calChange() {
+      if (this.relValues && this.relValues.calorie) {
+        const value = this.relValues.calorie.find(p => p[0] === 'CalFeed')
+        if (!value) return 0
+        return value[1]  - 1
+      } else {
+        return 0
+      }
+    },
     innovationSummary() {
       return innovationDescription({
         name: this.gdxData.name,
         scenario: this.gdxData.scenario,
         GWPChange: this.GWPChange,
-        profitChange: this.profitChange
+        profitChange: this.profitChange,
+        protChange: this.protChange,
+        calChange: this.calChange
       })
     } 
   },
@@ -229,7 +249,7 @@ export default {
       };
   },
   mounted() {
-    console.log(this.relValues, this.baseline, this.gdxData);
+    console.log(this.relValues);
   },
   components: {
     'bar': bar,
