@@ -191,7 +191,7 @@ export default {
     },
     protChange() {
       if (this.relValues && this.relValues.calorie) {
-        const value = this.relValues.calorie.find(p => p[0] === 'ProtFeed')
+        const value = this.relValues.calorie.find(p => p[0] === "ProtProdperFeed")
         if (!value) return 0
         return value[1]  - 1
       } else {
@@ -200,7 +200,7 @@ export default {
     },
     calChange() {
       if (this.relValues && this.relValues.calorie) {
-        const value = this.relValues.calorie.find(p => p[0] === 'CalFeed')
+        const value = this.relValues.calorie.find(p => p[0] === "CalProdperFeed")
         if (!value) return 0
         return value[1]  - 1
       } else {
