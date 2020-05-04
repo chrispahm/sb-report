@@ -65,9 +65,9 @@ export default {
 
 <style lang="css" scoped>
 .positive {
-  color: rgb(61, 145, 104);
+  color: '#55854c';
 }
 .negative {
-  color: rgb(172, 63, 63);
+  color: '#db4e3b';
 }
 </style>
