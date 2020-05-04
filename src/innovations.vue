@@ -175,7 +175,6 @@ export default {
     },
     profitChange() {
       if (this.relValues && this.relValues.profitFct) {
-        console.log(this.relValues.profitFct.find(p => p[0] === 'Profit(Euro)')[2] - 1);
         return this.relValues.profitFct.find(p => p[0] === 'Profit(Euro)')[2] - 1
       } else {
         return 0
@@ -185,7 +184,7 @@ export default {
       if (this.relValues && this.relValues.enviTot) {
         const value = this.relValues.enviTot.find(p => p[0] === 'GWP')
         if (!value) return 0
-        return value[1]
+        return value[1]  - 1
       } else {
         return 0
       }
