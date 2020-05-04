@@ -7,7 +7,7 @@
     </div>
     <div class="columns is-multiline">
       <percent class="column is-half" id="relProfitChange" title="Profit change" :finalValue="profitChange"></percent>
-      <percent class="column is-half" id="relGWPChange" title="GWP change" :finalValue="GWPChange"></percent>
+      <percent class="column is-half" id="relGWPChange" title="Global warming potential" :finalValue="GWPChange"></percent>
       <percent class="column is-half" id="relProtChange" title="Protein efficiency" :finalValue="protChange"></percent>
       <percent class="column is-half" id="relProtChange" title="Calorie efficiency" :finalValue="calChange"></percent>
     </div>

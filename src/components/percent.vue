@@ -27,8 +27,13 @@ export default {
   },
   computed: {
     isNegative() {
-      if (this.finalValue < 0) return true
-      else return false
+      if (this.title.includes('Global')) {
+        if (this.finalValue < 0) return false
+        else return true
+      } else {
+        if (this.finalValue < 0) return true
+        else return false
+      }    
     }
   },
   data() {
