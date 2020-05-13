@@ -52,13 +52,18 @@ export default {
         tooltips: helpers.tooltips(),
         plugins: {
           outlabels: {
-            text: '%l %v',
+            text: (context) => {
+              const index = context.dataIndex
+              const value = context.dataset.data[index]
+              const unit = this.title === 'Crop Shares' ? ' ha' : '' 
+              return value < 1 ? value.toExponential(3) + unit : value.toFixed(1) + unit
+            },
             display() {
               return true
               // return window._printing ? true : false
             },
             color: 'white',
-            stretch: 10,
+            stretch: 20,
             font: {
               resizable: true,
               minSize: 12

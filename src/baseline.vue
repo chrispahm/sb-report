@@ -19,15 +19,15 @@
       <!-- Cropshares -->
       <pie class="column is-half" id="cropShares" title="Crop Shares" :data="cropHa"></pie>
       <!-- Crop production -->
-      <stackedbar class="column is-half" id="dmProd" title="Dry Matter Production Table" :data="dryMatter"></stackedbar>
+      <stackedbar class="column is-half" id="dmProd" title="Dry Matter Production Table" :chartData="dryMatter"></stackedbar>
       <!-- Fertilisation table, stacked bar per crop -->
-      <stackedbar class="column is-half" id="cropFertN" title="N-Fertilisation per Crop" :data="n"></stackedbar>
+      <stackedbar class="column is-half" id="cropFertN" title="N-Fertilisation per Crop" :chartData="n"></stackedbar>
       <!-- Fertilisation table, stacked bar per crop -->
-      <stackedbar class="column is-half" id="cropFertP" title="P-Fertilisation per Crop" :data="P"></stackedbar>
+      <stackedbar class="column is-half" id="cropFertP" title="P-Fertilisation per Crop" :chartData="P"></stackedbar>
       <!-- Sum Herds, tabelle -->
-      <fdtable class="column is-half" id="Herdsize" title="Herd Sizes" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
+      <fdtable class="column is-half" id="Herdsize" title="Herd Sizes" :round="0" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
       <!-- LU, tabelle-->
-      <fdtable class="column is-half" title="Livestock Units" :is-econ="false" :data="lu" :header="['Type', 'Value']"></fdtable>
+      <fdtable class="column is-half" title="Livestock Units" :round="0" :is-econ="false" :data="lu" :header="['Type', 'Value']"></fdtable>
       <!-- Output quant, tabelle-->
       <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
       <!-- Input quant, tabelle-->
@@ -42,7 +42,7 @@
       <!-- Economics, tabelle-->
       <fdtable class="column is-full" id="economics" title="Economics Output" :is-econ="true" :data="profitFct" :header="['Description', 'Type', 'Amount [€]']"></fdtable>
       <!-- Feed, stacked bar per herd -->
-      <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="herd" :title="'Feed ' +  herd" :data="arr"></stackedbar>
+      <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="herd" :title="'Feed ' +  herd" :chartData="arr"></stackedbar>
       <div class="break"></div>
       <!-- Autonomy parameters - radial gauge-->
       <radial class="column is-half" id="autoSharePrem" title="Share Premium on Revenues" :data="autoSharePrem"></radial>
@@ -58,11 +58,11 @@
       <!-- Environment, bar -->
       <bar class="column is-half" id="environmentalBarTotal" title="Environmental Indicators Total" :data="enviTot" :options="enviOptions"></bar>
       <bar v-if="enviBal.length" bar class="column is-half" id="environmentalBarBalance" title="Environmental Indicators Balance" :data="enviBal" :options="enviOptions"></bar>
-      <pie class="column is-half" id="GWP" title="Source contribution GWP" :data="GWP"></pie>
-      <pie class="column is-half" id="PMFP" title="Source contribution PMFP" :data="PMFP"></pie>
-      <pie class="column is-half" id="TAP" title="Source contribution TAP" :data="TAP"></pie>
-      <pie class="column is-half" id="FEP" title="Source contribution FEP" :data="FEP"></pie>
-      <pie class="column is-half" id="MEP" title="Source contribution MEP" :data="MEP"></pie>
+      <pie class="column is-half" id="GWP" title="Source contribution global warming potential" :data="GWP"></pie>
+      <pie class="column is-half" id="PMFP" title="Source contribution particulate matter formation potential" :data="PMFP"></pie>
+      <pie class="column is-half" id="TAP" title="Source contribution terrestrial acidification" :data="TAP"></pie>
+      <pie class="column is-half" id="FEP" title="Source contribution freshwater eutrophication potential" :data="FEP"></pie>
+      <pie class="column is-half" id="MEP" title="Source contribution marine water eutrophication potential" :data="MEP"></pie>
     </div>
     <div class="break"></div>
     <div class="summary-box has-text-white" id="social_box">
