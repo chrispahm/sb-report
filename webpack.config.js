@@ -3,7 +3,7 @@ const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['babel-polyfill','./src/index.js'],
   module: {
     rules: [{
         test: /\.js$/,

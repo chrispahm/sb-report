@@ -22,7 +22,7 @@
       </div>
     </div>
     <baseline v-if="baselineShown" :gdxData="gdxData.Baseline"/>
-    <innovations v-else :gdxData="gdxData[selected]" :key="selected"/>
+    <innovations v-else :gdxData="gdxData[selected]" :baseline="gdxData.Baseline" :key="selected"/>
   </div>
 </template>
 

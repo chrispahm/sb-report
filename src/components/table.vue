@@ -37,6 +37,11 @@ export default {
       required: false,
       default: false
     },
+    round: {
+      type: Number,
+      required: false,
+      default: 2
+    },
     header: {
       type: Array,
       required: false,
@@ -58,7 +63,7 @@ export default {
       } else if (!isNaN(Number(cell)) && Number(cell) > 100000000 ) {
         return 'inf'
       } else if (!isNaN(Number(cell)) && cell) {
-        return _.round(cell,2).toLocaleString('en-GB')
+        return _.round(cell,this.round).toLocaleString('en-GB')
       }
       return helpers.format(cell)
     }

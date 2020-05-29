@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h5 v-bind:id="id + '_head'" class="title is-5 fd-item">{{ title }}</h5>
+  <h5 v-bind:id="id + '_head'" class="title is-5 fd-item">{{ fixedTitle }}</h5>
   <canvas v-bind:id="id" width="300" height="300"></canvas>
 </div>
 </template>
@@ -22,15 +22,17 @@ export default {
       type: String,
       required: true
     },
-    data: {
+    chartData: {
       type: Array,
       required: true
     }
   },
   mounted() {
-    let data = this.data
+    if (this.id.includes('_f') || this.id.includes('_m') || this.id === 'motherCow' || this.id === 'mCalvsRais' || this.id === 'fCalvsRais') this.correctTitle()
+    let data = this.chartData
     if (data[0].length > 3) data = this.rework(data)
     var ctx = document.getElementById(this.id)
+    
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -50,7 +52,41 @@ export default {
       }
     })
   },
+  data() {
+    return {
+      feedTitle: ''
+    }
+  },
+  computed: {
+    fixedTitle() {
+      if (this.feedTitle) return this.feedTitle
+      return this.title
+    }
+  },
   methods: {
+    correctTitle() {
+      const herd = this.id
+      const split = herd.split('_')
+      // without price
+      if (split.length === 6 || split.length === 7) {
+        let breed = split[0]
+        if (breed === 'SalChar') breed = 'Saler x Charolais'
+        if (breed === 'AngXLim') breed = 'Angus x Limousin'
+        if (breed === 'SalXAng') breed = 'Saler x Angus'
+        if (breed === 'BBB') breed = 'Belgian Blue'
+        let sex = 'bulls'
+        if (split[1] === 'f') sex = 'heifers'
+        let weightGain = _.round((Number(split[4]) - Number(split[3])) / split[5],1)
+        this.feedTitle = `Feed ${breed}, ${sex}, from ${split[3]} kg to ${split[4]} kg, ${weightGain} kg daily weight gain`
+      } else if (herd === 'motherCow') {
+        this.feedTitle = 'Feed mother cows'
+      } else if (herd === 'mCalvsRais') {
+        this.feedTitle = 'Feed male calves raised'
+      } else if (herd === 'fCalvsRais') {
+        this.feedTitle = 'Feed female calves raised'
+      }
+      // console.log(split);
+    },
     createLabels(data) {
       // sort labels if monthly
       let labels = _.uniq(data.map(d => d[0]))

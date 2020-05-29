@@ -33,8 +33,11 @@ export default {
   },
   mounted() {
     var ctx = document.getElementById(this.id)
-    var data = this.data.map(d => d[1])
-    var labels = this.data.map(d => helpers.format(d[0]))
+    const kickOut = ['ALOP', 'FETPinf', 'IRP_HE', "METPinf", 'HTPinf', 'MDP', 'NLTP', 'ODPinf', 'POFP', 'ULOP', 'WDP', 'TETPinf']
+
+    var filtered = this.data.filter(d => kickOut.indexOf(d[0]) > -1 ? false : true)
+    var data = filtered.map(d => d[1])
+    var labels = filtered.map(d => helpers.format(d[0]))
     var colors = helpers.createColors(this.data.length)
     var myChart = new Chart(ctx, {
       type: 'bar',
