@@ -37,6 +37,7 @@ module.exports = {
         const split = string.split(' ')
         let breed = split[0]
         if (breed === 'SalChar') breed = 'Saler x Charolais'
+        if (breed === 'SalXChar') breed = 'Saler x Charolais'
         if (breed === 'AngXLim') breed = 'Angus x Limousin'
         if (breed === 'SalXAng') breed = 'Saler x Angus'
         if (breed === 'BBB') breed = 'Belgian Blue'

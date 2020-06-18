@@ -16,7 +16,7 @@
     <div v-if="gdxData" style="text-align: center; line-height: 36px;">
       Currently selected scenario:
       <div class="select">
-        <select class="" v-model="selected">
+        <select id="scenarioSelector" class="" v-model="selected">
           <option v-for="(obj, scenario) in gdxData" :value="scenario">{{ obj.scenario }}</option>
         </select>
       </div>
