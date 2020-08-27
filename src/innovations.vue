@@ -6,10 +6,10 @@
       <p>{{ innovationSummary }}</p>
     </div>
     <div class="columns is-multiline">
-      <percent class="column is-half" id="relProfitChange" title="Profit change" :finalValue="profitChange"></percent>
-      <percent class="column is-half" id="relGWPChange" title="Global warming potential" :finalValue="GWPChange"></percent>
-      <percent class="column is-half" id="relProtChange" title="Protein efficiency" :finalValue="protChange"></percent>
-      <percent class="column is-half" id="relProtChange" title="Calorie efficiency" :finalValue="calChange"></percent>
+      <percent class="column is-half" :id="`${gdxData.scenario}_relProfitChange`" title="Profit change" :finalValue="profitChange"></percent>
+      <percent class="column is-half" :id="`${gdxData.scenario}_relGWPChange`" title="Global warming potential" :finalValue="GWPChange"></percent>
+      <percent class="column is-half" :id="`${gdxData.scenario}_relProtChange`" title="Protein efficiency" :finalValue="protChange"></percent>
+      <percent class="column is-half" :id="`${gdxData.scenario}_relProtChange`" title="Calorie efficiency" :finalValue="calChange"></percent>
     </div>
     <br>
     <!-- Page Header -->
@@ -29,15 +29,15 @@
     <!-- Sub Pages/Graph Section -->
     <div class="columns is-multiline">
       <!-- Cropshares -->
-      <pie class="column is-half" id="cropShares" title="Crop Shares" :data="cropHa"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_cropShares`" title="Crop Shares" :data="cropHa"></pie>
       <!-- Crop production -->
-      <stackedbar class="column is-half" id="dmProd" title="Dry Matter Production Table" :chartData="dryMatter"></stackedbar>
+      <stackedbar class="column is-half" :id="`${gdxData.scenario}_dmProd`" title="Total Fresh Matter Production" :chartData="dryMatter"></stackedbar>
       <!-- Fertilisation table, stacked bar per crop -->
-      <stackedbar class="column is-half" id="cropFertN" title="N-Fertilisation per Crop" :chartData="n"></stackedbar>
+      <stackedbar class="column is-half" :id="`${gdxData.scenario}_cropFertN`" title="N-Fertilisation per Crop" :chartData="n"></stackedbar>
       <!-- Fertilisation table, stacked bar per crop -->
-      <stackedbar class="column is-half" id="cropFertP" title="P-Fertilisation per Crop" :chartData="P"></stackedbar>
+      <stackedbar class="column is-half" :id="`${gdxData.scenario}_cropFertP`" title="P-Fertilisation per Crop" :chartData="P"></stackedbar>
       <!-- Sum Herds, tabelle -->
-      <fdtable class="column is-half" id="Herdsize" title="Herd Sizes" :round="0" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
+      <fdtable class="column is-half" :id="`${gdxData.scenario}_Herdsize`" title="Herd Sizes" :round="0" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
       <!-- LU, tabelle-->
       <fdtable class="column is-half" title="Livestock Units" :is-econ="false" :round="0" :data="lu" :header="['Type', 'Value']"></fdtable>
       <!-- Output quant, tabelle-->
@@ -46,47 +46,47 @@
       <fdtable class="column is-half" title="Bought Input Quantity" :data="inputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
     </div>  
     <div class="break"></div>
-    <div class="summary-box has-text-white" id="economics_box">
+    <div class="summary-box has-text-white" :id="`${gdxData.scenario}_economics_box`">
       <h3 class="title is-3 has-text-white">Economic indicator</h3>
       <p>{{econSummary}}</p>
     </div>
     <div class="columns is-multiline">
       <!-- Economics, tabelle-->
-      <fdtable class="column is-full" id="economics" title="Economics Output" :is-econ="true" :data="profitFct" :header="['Description', 'Type', 'Amount [€]']"></fdtable>
+      <fdtable class="column is-full" :id="`${gdxData.scenario}_economics`" title="Economics Output" :is-econ="true" :data="profitFct" :header="['Description', 'Type', 'Amount [€]']"></fdtable>
       <!-- Feed, stacked bar per herd -->
-      <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="herd" :title="'Feed ' +  herd" :chartData="arr"></stackedbar>
+      <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="`${gdxData.scenario}_${herd}`" :title="'Feed ' +  herd" :chartData="arr"></stackedbar>
       <div class="break"></div>
       <!-- Autonomy parameters - radial gauge-->
-      <radial class="column is-half" id="autoSharePrem" title="Share Premium on Revenues" :data="autoSharePrem"></radial>
-      <radial class="column is-half" id="autoShareInput" title="Share Input Costs on Variable Costs" :data="autoShareInput"></radial>
-      <bar class="column is-half" id="wageHour" title="Hourly Wage" :data="labProfit"></bar>
+      <radial class="column is-half" :id="`${gdxData.scenario}_autoSharePrem`" title="Share Premium on Revenues" :data="autoSharePrem"></radial>
+      <radial class="column is-half" :id="`${gdxData.scenario}_autoShareInput`" title="Share Input Costs on Variable Costs" :data="autoShareInput"></radial>
+      <bar class="column is-half" :id="`${gdxData.scenario}_wageHour`" title="Hourly Wage" :data="labProfit"></bar>
     </div>
     <div class="break"></div>
-    <div class="summary-box has-text-white" id="environmental_box">
+    <div class="summary-box has-text-white" :id="`${gdxData.scenario}_environmental_box`">
       <h3 class="title is-3 has-text-white">Environmental indicator</h3>
       <p>{{enviSummary}}</p>
     </div>
     <div class="columns is-multiline">
       <!-- Environment, bar -->
-      <bar class="column is-half" id="environmentalBarTotal" title="Environmental Indicators Total" :data="enviTot" :options="enviOptions"></bar>
-      <bar v-if="enviBal.length" bar class="column is-half" id="environmentalBarBalance" title="Environmental Indicators Balance" :data="enviBal" :options="enviOptions"></bar>
-      <pie class="column is-half" id="GWP" title="Source contribution global warming potential" :data="GWP"></pie>
-      <pie class="column is-half" id="PMFP" title="Source contribution particulate matter formation potential" :data="PMFP"></pie>
-      <pie class="column is-half" id="TAP" title="Source contribution terrestrial acidification" :data="TAP"></pie>
-      <pie class="column is-half" id="FEP" title="Source contribution freshwater eutrophication potential" :data="FEP"></pie>
-      <pie class="column is-half" id="MEP" title="Source contribution marine water eutrophication potential" :data="MEP"></pie>
+      <bar class="column is-half" :id="`${gdxData.scenario}_environmentalBarTotal`" title="Environmental Indicators Total" :data="enviTot" :options="enviOptions"></bar>
+      <bar v-if="enviBal.length" bar class="column is-half" :id="`${gdxData.scenario}_environmentalBarBalance`" title="Environmental Indicators Balance" :data="enviBal" :options="enviOptions"></bar>
+      <pie class="column is-half" :id="`${gdxData.scenario}_GWP`" title="Source contribution global warming potential" :data="GWP"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_PMFP`" title="Source contribution particulate matter formation potential" :data="PMFP"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_TAP`" title="Source contribution terrestrial acidification" :data="TAP"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_FEP`" title="Source contribution freshwater eutrophication potential" :data="FEP"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_MEP`" title="Source contribution marine water eutrophication potential" :data="MEP"></pie>
     </div>
     <div class="break"></div>
-    <div class="summary-box has-text-white" id="social_box">
+    <div class="summary-box has-text-white" :id="`${gdxData.scenario}_social_box`">
       <h3 class="title is-3 has-text-white">Social indicator</h3>
       <p>{{sociSummary}}</p>
     </div>
     <div class="columns is-multiline">
       <!-- Social - stacked lines -->
-      <stackedlines class="column is-full" id="workHour" title="Work Hours Distribution Monthly" :data="work"></stackedlines>
-      <fdtable class="column is-half" id="workHoursum" title="Work Hours total" :data="work1"></fdtable>
+      <stackedlines class="column is-full" :id="`${gdxData.scenario}_workHour`" title="Work Hours Distribution Monthly" :data="work"></stackedlines>
+      <fdtable class="column is-half" :id="`${gdxData.scenario}_workHoursum`" title="Work Hours total" :data="work1"></fdtable>
       <!-- Calories - bar -->
-      <fdtable class="column is-half" id="calorie" title="Calorie and protein effciency of cattle branch" :data="calorie"></fdtable>
+      <fdtable class="column is-half" :id="`${gdxData.scenario}_calorie`" title="Calorie and protein effciency of cattle branch" :data="calorie"></fdtable>
     </div>
   </div>
 </template>

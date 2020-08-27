@@ -28,7 +28,6 @@ module.exports = {
   },
   getCrops(cropHa, country) {
     const crops = cropHa.filter(c => !c[0].includes('idle')).sort((a,b) => b[1] - a[1])
-    console.log(crops);
     const arabCrops = crops.filter(c => !c[0].includes('gras'))
     const grasCrops = crops.filter(c => c[0].includes('gras'))
     const silage = crops.filter(c => c[0].includes('sil'))

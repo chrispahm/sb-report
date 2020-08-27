@@ -37,6 +37,7 @@ module.exports = {
         const split = string.split(' ')
         let breed = split[0]
         if (breed === 'SalChar') breed = 'Saler x Charolais'
+        if (breed === 'SalXChar') breed = 'Saler x Charolais'
         if (breed === 'AngXLim') breed = 'Angus x Limousin'
         if (breed === 'SalXAng') breed = 'Saler x Angus'
         if (breed === 'BBB') breed = 'Belgian Blue'
@@ -163,6 +164,12 @@ module.exports = {
           if (s === 'sal') s = 'saler'
           if (s === 'char') s = 'x charolais'
           if (s === 'bbb') s = 'belgian blue'
+          if (s === 'Mont') breed = 'Montbeliarde x'
+          if (s === 'cha') breed = 'Charolais'
+          if (s === 'fem') breed = 'Female'
+          if (s === 'mal') breed = 'Male'
+          if (s === 'xchar') breed = 'x Charolais'
+          if (s === 'lim') breed = 'Limousin'
           return s
         })
         .map((s,i) => i === 0 ? s.charAt(0).toUpperCase() + s.substring(1) : s)

@@ -36,4 +36,9 @@ the additional `C: && ` is required when the FarmDyn checkout is not on the C-Dr
 ```
 Include social accounting = true
 ```
+
+## Creating a word report
+
+If you are running the script outside of Uni Bonn (Alex), you need to have Pandoc installed and in your path variable.
  
+In order to create a full report, i.e. all Websites (exporting all images), an Excel file with the results as well as a final Word report, simply double-click the `prepare.cmd` file.
