@@ -4,6 +4,8 @@ const readGDX = require('./prepare/readGDX')
 const util = require('util')
 const _ = require('lodash')
 const child_process = require('child_process')
+const table = require('markdown-table')
+const helpers = require('./src/helpers')
 
 const readDir = util.promisify(fs.readdir)
 const writeFile = util.promisify(fs.writeFile)
@@ -151,19 +153,62 @@ function calChange() {
   */
   // Baseline
   let baseline = '# Baseline system performance and innovation results\nDeliverable 3.2\n\n'
+  let curFigure = 1
+  let curTable = 1
   Object.keys(countries).forEach(country => {
     baseline += `## ${country}\n\n`
     countries[country].forEach(caseStudy => {
       const imagePath = __dirname + '/output/' + caseStudy.Baseline.name
       baseline += `### ${caseStudy.Baseline.name}\n\n`
       baseline += `${summaryDescription.summary(caseStudy.Baseline)}\n\n`
-      baseline += `![Figure 1: Crop shares in baseline scenario of ${caseStudy.Baseline.name}](${imagePath}/Baseline_cropShares.png){ height=256px }\n\n`
+      baseline += `Figure ${curFigure} outlines the crop shares cultivated by the farm ${caseStudy.Baseline.name} in the baseline scenario. Crop shares are reported on as the amount of hectares cultivated of a certain crop. 
+      For grass outputs, the labels in the figure differentiate production types (e.g. amount of cuts or hay) and yield levels.\n\n`
+      baseline += `![Figure ${curFigure}: Crop shares in baseline scenario of ${caseStudy.Baseline.name}](${imagePath}/Baseline_cropShares.png){ height=256px }\n\n`
+      curFigure++
+      
+      baseline += `A detailed overview of the standing herd sizes, given as average numbers over the year, is given in Table ${curTable}. Note that the herds are differentiated by sex, age, and breed.\n\n`
+      const tableData = caseStudy.Baseline.sumHerd.map(s => {
+          s[0] = helpers.format(s[0])
+          if (s[0] === 'Old cows') return
+          s[1] = helpers.format(s[1])
+          s[s.length - 1] = Math.round(s[s.length - 1])
+          return s
+        }).filter(s => s)
+        
+      tableData.unshift(['Name','Breed','Number (avg. per year)'])
+        
+      baseline += `\n${table(tableData,{align: ['l', 'l', 'r']})}\nTable: Table ${curTable}: Herd sizes of farm ${caseStudy.Baseline.name}.\n\n`
+      curTable++
+      
       baseline += `#### Economic indicators\n\n`
       baseline += `${economicDescription(caseStudy.Baseline)}\n\n`
+      baseline += `The following table (Table ${curTable}) gives and overview over of the key economic indicators of the farm ${caseStudy.Baseline.name}. 
+      Profits, both total and differentiated by products, as well as costs are outlined in the table. 
+      Subsidies, both coupled (bound to animal production) and decoupled (first pillar of the CAP) are outlined as well.
+      Note that the depreciation costs given in the table reflect a modeling assumption of constant re-investments, and therefore might differ from observed depreciation values.\n\n`
+      const econData = caseStudy.Baseline.profitFct.map(s => {
+          s[0] = helpers.format(s[0])
+          if (s[0] == 'Input costs (bought)') return
+          s[1] = helpers.format(s[1])
+          s[s.length - 1] = Math.round(s[s.length - 1]).toLocaleString() + ' €'
+          return s
+        }).filter(s => s)      
+      econData.unshift(['Description','Type','Amount [€]'])
+      baseline += `\n${table(econData,{align: ['l', 'l', 'r']})}\nTable: Table ${curTable}: Economic indicators of ${caseStudy.Baseline.name}.\n\n`
+      curTable++
+
       baseline += `#### Environmental indicators\n\n`
+      baseline += `Figure ${curFigure} presents an overview of the environmental indicators modeled in the SustainBeef analysis for the baseline scenario of ${caseStudy.Baseline.name}.
+      Most notably, the summarizing indicator 'Global Warming Potential' is given, as well as further indicators allowing for a more detailed analysis of the environmental impacts of the current farming practise
+      (among others: fossil fuel depletion, freshwater eutrophication potential).\n\n`
+      baseline += `![Figure ${curFigure}: Levels of environmental indicators in the SustainBeef analysis for ${caseStudy.Baseline.name}](${imagePath}/Baseline_environmentalBarTotal.png){ height=400px }\n\n`
+      curFigure++
+      
       baseline += `${enviDescription(caseStudy.Baseline)}\n\n`
       baseline += `#### Social indicators\n\n`
-      baseline += `${sociDescription(caseStudy.Baseline)}\n\n`
+      baseline += `${sociDescription(caseStudy.Baseline)}\n. The distribution of the workload over the year is highlighted in Figure ${curFigure}.\n\n`
+      baseline += `![Figure ${curFigure}: Distribution of workload over the year in the baseline scenario of ${caseStudy.Baseline.name}](${imagePath}/Baseline_workHour.png){ height=400px }\n\n`
+      curFigure++
     })
   })
   
