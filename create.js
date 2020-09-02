@@ -71,7 +71,7 @@ module.exports = async (farm,output) => {
           ctx.height = 300
           const body = document.getElementsByTagName('body')[0]
           body.appendChild(ctx)
-          chart.config.options.devicePixelRatio = 3
+          // chart.config.options.devicePixelRatio = 3
           chart.config.options.responsiveAnimationDuration = 0
           chart.config.options.plugins.deferred = false
           // chart.config.options.plugins.outlabels.font.minSize = 48
