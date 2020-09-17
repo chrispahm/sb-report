@@ -22,6 +22,14 @@ export default {
       type: String,
       required: true
     },
+    xLabel: {
+      type: String,
+      required: false
+    },
+    yLabel: {
+      type: String,
+      required: false
+    },
     chartData: {
       type: Array,
       required: true
@@ -42,10 +50,18 @@ export default {
       options: {
         scales: {
           xAxes: [{
-            stacked: true
+            stacked: true,
+            scaleLabel: {
+              display: this.xLabel ? true : false,
+              labelString: this.xLabel 
+            }
           }],
           yAxes: [{
-            stacked: true
+            stacked: true,
+            scaleLabel: {
+              display: this.yLabel ? true : false,
+              labelString: this.yLabel 
+            }
           }]
         },
         tooltips: helpers.tooltips()

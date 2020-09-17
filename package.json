@@ -6,7 +6,7 @@
   "scripts": {
     "create": "node main.js",
     "excel": "node excel.js",
-    "word": "node wordReport.js",
+    "word": "node innovationGraphs.js && node wordReport.js",
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },
@@ -17,8 +17,10 @@
     "@babel/preset-env": "^7.6.0",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
-    "chart.js": "^2.8.0",
+    "canvas": "^2.6.1",
+    "chart.js": "^2.9.3",
     "chartjs-chart-radial-gauge": "^1.0.3",
+    "chartjs-node-canvas": "^3.0.6",
     "chartjs-plugin-deferred": "^1.0.1",
     "chartjs-plugin-piechart-outlabels": "^0.1.4",
     "css-loader": "^3.2.0",
@@ -28,6 +30,7 @@
     "lodash": "^4.17.15",
     "markdown-table": "^2.0.0",
     "node-gdx": "^1.0.4",
+    "patternomaly": "^1.3.2",
     "puppeteer": "^1.19.0",
     "save": "^2.4.0",
     "tinygradient": "^1.0.0",
