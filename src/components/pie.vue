@@ -30,10 +30,17 @@ export default {
   },
   mounted() {
     var ctx = document.getElementById(this.id)
-    var sorted = this.data.sort(function(a, b){return a[1] - b[1]})
+    var sorted = this.title === 'Crop Shares' ? this.data.sort(function(a, b) {
+      return a[0] - b[0]
+    }) : this.data.sort(function(a, b) {
+      return a[1] - b[1]
+    })
     var data = sorted.map(d => d[1])
     var labels = sorted.map(d => helpers.format(d[0]))
-    var colors = helpers.createColors(this.data.length)
+    var countGrasCrops = this.data.filter(d => d[0].includes('gras')).length
+    var countArabCrops = this.data.length - countGrasCrops
+    var colors = this.title === 'Crop Shares' ? this.generateColors(countGrasCrops, countArabCrops, labels) : helpers.createColors(this.data.length)
+    console.log(colors);
     var myChart = new Chart(ctx, {
       get type() {
         return 'outlabeledPie'
@@ -55,7 +62,7 @@ export default {
             text: (context) => {
               const index = context.dataIndex
               const value = context.dataset.data[index]
-              const unit = this.title === 'Crop Shares' ? ' ha' : '' 
+              const unit = this.title === 'Crop Shares' ? ' ha' : ''
               return value < 1 ? value.toExponential(3) + unit : value.toFixed(1) + unit
             },
             display() {
@@ -72,7 +79,24 @@ export default {
         }
       }
     })
+  },
+  methods: {
+    generateColors(countGrasCrops,countArabCrops,labels) {
+      const arabColors = helpers.createArabColors(countArabCrops)
+      const grasColors = helpers.createGrasColors(countGrasCrops)
+      let curArabIndex = 0
+      let curGrasIndex = 0
+      return labels.map((crop,i) => {
+        if (crop.includes('Gras')) {
+          curGrasIndex++
+          return grasColors[curGrasIndex -1]
+        }
+        curArabIndex++
+        return arabColors[curArabIndex -1]
+      })
+    }
   }
+
 }
 </script>
 <style scoped>
