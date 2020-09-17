@@ -8,7 +8,7 @@
         </th>
       </thead>
       <tbody>
-        <tr v-for="(row,j) in data" :key="`${JSON.stringify(row)}_${j}_row`">
+        <tr v-for="(row,j) in filteredData" :key="`${JSON.stringify(row)}_${j}_row`">
           <td v-for="(cell,k) in row" :key="`${cell}_${k}_cell`">{{
             cellFormat(cell)}}
           </td>
@@ -50,6 +50,16 @@ export default {
     id: {
       type: String,
       required: false
+    }
+  },
+  computed: {
+    filteredData() {
+      return this.data.filter(r => {
+        const ignore = ['bullsKept']
+        if (ignore.indexOf(r[0]) === -1) {
+          return r
+        } 
+      })
     }
   },
   methods: {
