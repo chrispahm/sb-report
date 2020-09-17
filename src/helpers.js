@@ -16,6 +16,36 @@ module.exports = {
       colorArray: ['#3e5071', '#77c1a7', '#ef7a17']
     })
   },
+  createArabColors(length) {
+    if (length === 0) return
+    if (length === 1) {
+      return ['rgb(82, 60, 13)']
+    } else if (length === 2) {
+      return ['rgb(82, 60, 13)','rgb(136, 121, 74)']
+    } else if (length === 3) {
+      return ['rgb(82, 60, 13)', 'rgb(136, 121, 74)', 'rgb(204, 198, 115)']
+    }
+    return gradstop({
+      stops: length,
+      inputFormat: 'hex',
+      colorArray: ['#523c0d', '#ccc673']
+    })
+  },
+  createGrasColors(length) {
+    if (length === 0) return
+    if (length === 1) {
+      return ['rgb(119, 193, 138)']
+    } else if (length === 2) {
+      return ['rgb(119, 193, 138)', 'rgb(35, 78, 9)']
+    } else if (length === 3) {
+      return ['rgb(119, 193, 138)', 'rgb(63, 149, 87)', 'rgb(35, 78, 9)']
+    }
+    return gradstop({
+      stops: length,
+      inputFormat: 'hex',
+      colorArray: ['#bdddb2','#0b502b']
+    })
+  },
   shortMonths() {
     return [
       'JAN', 'FEB', 'MAR', 'APR',
