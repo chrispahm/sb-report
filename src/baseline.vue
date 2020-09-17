@@ -25,7 +25,7 @@
       <!-- Fertilisation table, stacked bar per crop -->
       <stackedbar class="column is-half" id="Baseline_cropFertP" title="P-Fertilisation per Crop" :chartData="P"></stackedbar>
       <!-- Sum Herds, tabelle -->
-      <fdtable class="column is-half" id="Baseline_Herdsize" title="Herd Sizes" :round="0" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
+      <fdtable class="column is-half" id="Baseline_Herdsize" :title="'Herd structure of farm ' + gdxData.name" :round="0" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
       <!-- LU, tabelle-->
       <fdtable class="column is-half" title="Livestock Units" :round="0" :is-econ="false" :data="lu" :header="['Type', 'Value']"></fdtable>
       <!-- Output quant, tabelle-->
