@@ -6,7 +6,7 @@ const _ = require('lodash')
 const child_process = require('child_process')
 const table = require('markdown-table')
 const helpers = require('./src/helpers')
-
+const summaries = require('./summaries/summaries')
 const readDir = util.promisify(fs.readdir)
 const writeFile = util.promisify(fs.writeFile)
 const unlink = util.promisify(fs.unlink)
@@ -143,7 +143,7 @@ function calChange() {
   }
   // now create the two reports
   /*
-  WP 3.2 Structure:
+  WP 3.3 Structure:
   ## Country
   ### Case study
   Baseline Summary
@@ -152,7 +152,7 @@ function calChange() {
   #### Social
   */
   // Baseline
-  let baseline = '# Baseline system performance and innovation results\nDeliverable 3.2\n\n'
+  let baseline = '# Baseline system performance results\nDeliverable 3.3\n\n'
   let curFigure = 1
   let curTable = 1
   Object.keys(countries).forEach(country => {
@@ -214,7 +214,7 @@ function calChange() {
   
   // now create the two reports
   /*
-  WP 3.3 Structure:
+  WP 3.4 Structure:
   ## Country
   ### Case study
   #### Innovtion
@@ -223,12 +223,20 @@ function calChange() {
   Random Economics, Environment, Social
   */
   // innovations
-  let innovationsText = '# Baseline system performance and innovation results\nDeliverable 3.2\n\n'
+  let innovationsText = '# Innovation results\nDeliverable 3.4\n\n'
+  curFigure = 1
   Object.keys(countries).forEach(country => {
     innovationsText += `## ${country}\n\n`
     countries[country].forEach(caseStudy => {
+      const imagePath = __dirname + '/output/' + caseStudy.Baseline.name
       innovationsText += `### ${caseStudy.Baseline.name}\n\n`
-      Object.keys(caseStudy).forEach(innovation => {
+      if (summaries[caseStudy.Baseline.name]) {
+        innovationsText += '#### Summary\n'
+        innovationsText += `${summaries[caseStudy.Baseline.name]}\n\n`
+        innovationsText += `![Figure ${curFigure}: Profit (€) whole farm per scenario](${imagePath}/profit.png){ height=256px }\n\n`
+        curFigure++
+      }
+      Object.keys(caseStudy).forEach((innovation,index) => {
         if (innovation === 'Baseline') return
         innovationsText += `#### ${caseStudy[innovation].scenario}\n\n`
         gdxData = caseStudy[innovation]
@@ -241,6 +249,16 @@ function calChange() {
           protChange: protChange(),
           calChange: calChange()
         })}\n\n`
+        if (index === 1) {
+          innovationsText += `![Figure ${curFigure}: GWP in kg CO₂ per kg output](${imagePath}/gwp.png){ height=256px }\n\n`
+          curFigure++
+        } else if (index === 2) {
+          innovationsText += `![Figure ${curFigure}: Calorie efficiency in cal/cal. A blue border indicates an inifinite value for the respective scenario.](${imagePath}/cal.png){ height=256px }\n\n`
+          curFigure++
+        } else if (index === 3) {
+          innovationsText += `![Figure ${curFigure}: Protein efficiency in kg/kg. A blue border indicates an inifinite value for the respective scenario.](${imagePath}/prot.png){ height=256px }\n\n`
+          curFigure++
+        }
         const rand = Math.random()
         if (rand < 0.33) {
           innovationsText += `${summaryDescription.summary(caseStudy[innovation])}\n\n`
@@ -254,12 +272,12 @@ function calChange() {
     })
   })
   try {
-    await writeFile('./output/report/SustainBeef - Deliverable 3.2.md', baseline, 'utf8')
-    await exec('pandoc -s --toc "./output/report/SustainBeef - Deliverable 3.2.md" -o "./output/report/SustainBeef - Deliverable 3.2.docx"')
-    await writeFile('./output/report/SustainBeef - Deliverable 3.3.md', innovationsText, 'utf8')
+    await writeFile('./output/report/SustainBeef - Deliverable 3.3.md', baseline, 'utf8')
     await exec('pandoc -s --toc "./output/report/SustainBeef - Deliverable 3.3.md" -o "./output/report/SustainBeef - Deliverable 3.3.docx"')
-    await unlink('./output/report/SustainBeef - Deliverable 3.2.md')
+    await writeFile('./output/report/SustainBeef - Deliverable 3.4.md', innovationsText, 'utf8')
+    await exec('pandoc -s --toc "./output/report/SustainBeef - Deliverable 3.4.md" -o "./output/report/SustainBeef - Deliverable 3.4.docx"')
     await unlink('./output/report/SustainBeef - Deliverable 3.3.md')
+    await unlink('./output/report/SustainBeef - Deliverable 3.4.md')
   } catch (e) {
     console.log(e);
   }

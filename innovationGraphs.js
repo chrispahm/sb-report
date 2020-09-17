@@ -47,46 +47,104 @@ async function saveImage(json, cs, indicator) {
   await writeFile(`output/${cs}/${indicator}.png`, buffer.replace(/^data:image\/png;base64,/, ""), 'base64')
 }
 
+function checkInf(data) {
+  return data.some(val => !isFinite(val))
+}
 
 function createChartJSBar(title, data, labels) {
-  return {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Baseline',
-        data: [data[0]],
-        backgroundColor: 'rgb(120, 193, 168)',
-        borderColor: '#fff',
-        borderWidth: 2
-      }, {
-        label: 'Innovations',
-        data: [0, ...data.slice(1)],
-        backgroundColor: 'rgb(238, 122, 23)',
-        borderColor: '#fff',
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      devicePixelRatio: 4,
-      title: {
-        display: true,
-        text: title
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            // Include a dollar sign in the ticks
-            callback: function(value, index, values) {
-              return title.includes('Profit') ? value.toLocaleString() + '€' : value;
-            }
-          }
+  const containsInfinite = checkInf(data)
+  if (!containsInfinite) {
+    return {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Baseline',
+          data: [data[0]],
+          backgroundColor: 'rgb(120, 193, 168)',
+          borderColor: '#fff',
+          borderWidth: 2
+        }, {
+          label: 'Innovations',
+          data: [0, ...data.slice(1)],
+          backgroundColor: 'rgb(238, 122, 23)',
+          borderColor: '#fff',
+          borderWidth: 2
         }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        devicePixelRatio: 4,
+        title: {
+          display: false,
+          text: title
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              // Include a dollar sign in the ticks
+              callback: function(value, index, values) {
+                return title.includes('Profit') ? value.toLocaleString() + '€' : value;
+              }
+            }
+          }]
+        }
       }
     }
+  } else {
+    const max = data.reduce((val,cur) => cur > val && isFinite(cur) ? cur : val, 2)
+    const roundedMax = Math.round(max * 1.2 * 0.1) / 0.1
+    console.log(roundedMax);
+    // const maxYValue = Math.max(2, roundedMax * 1.2)
+    // replace infinite values
+    // infData = data.map(val => !isFinite(val) ? roundedMax : 0)
+    data = data.map(val => !isFinite(val) ? roundedMax : val)
+    
+    const settings =  {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Baseline',
+          data: [data[0]],
+          backgroundColor: 'rgb(120, 193, 168)',
+          borderColor: data[0] == roundedMax ? '#3e5071' : '#fff',
+          borderWidth: data[0] == roundedMax ? 4 : 2,
+        }, {
+          label: 'Innovations',
+          data: [0, ...data.slice(1)],
+          backgroundColor: 'rgb(238, 122, 23)',
+          borderColor: [0, ...data.slice(1)].map(val => val == roundedMax ? '#3e5071' : '#fff'),
+          borderWidth: [0, ...data.slice(1)].map(val => val == roundedMax ? 4 : 2)
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        devicePixelRatio: 4,
+        title: {
+          display: false,
+          text: title
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              max: roundedMax,
+              min: 0,
+              // Include a dollar sign in the ticks
+              callback: function(value, index, values) {
+                return title.includes('Profit') ? value.toLocaleString() + '€' : value;
+              }
+            }
+          }]
+        }
+      }
+    }
+    
+    return settings
   }
+
 }
 
 async function createProfitBar(gdx) {
@@ -106,7 +164,7 @@ async function createGWP(gdx) {
 async function createCal(gdx) {
   const scenarios = Object.keys(gdx)
   let data = scenarios.map(s => gdx[s].calorie.find(p => p[0] === 'CalProdperFeed'))
-  data = data.map(arr => arr ? arr[1] : 0)
+  data = data.map(arr => arr ? arr[1] : Infinity)
   const json = createChartJSBar("Calorie efficiency in cal/cal", data, scenarios)
   await saveImage(json, gdx[Object.keys(gdx)[0]].name, 'cal')
 }
@@ -114,7 +172,7 @@ async function createCal(gdx) {
 async function createProt(gdx) {
   const scenarios = Object.keys(gdx)
   let data = scenarios.map(s => gdx[s].calorie.find(p => p[0] === 'ProtProdperFeed'))
-  data = data.map(arr => arr ? arr[1] : 0)
+  data = data.map(arr => arr ? arr[1] : Infinity)
   const json = createChartJSBar("Protein efficiency in kg/kg", data, scenarios)
   await saveImage(json, gdx[Object.keys(gdx)[0]].name, 'prot')
 }
