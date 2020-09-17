@@ -19,7 +19,7 @@
       <!-- Cropshares -->
       <pie class="column is-half" id="Baseline_cropShares" title="Crop Shares" :data="cropHa"></pie>
       <!-- Crop production -->
-      <stackedbar class="column is-half" id="Baseline_dmProd" title="Total Fresh Matter Production" :chartData="dryMatter"></stackedbar>
+      <stackedbar class="column is-half" id="Baseline_dmProd" title="Total Fresh Matter Production" yLabel="t FM/a" :chartData="dryMatter"></stackedbar>
       <!-- Fertilisation table, stacked bar per crop -->
       <stackedbar class="column is-half" id="Baseline_cropFertN" title="N-Fertilisation per Crop" :chartData="n"></stackedbar>
       <!-- Fertilisation table, stacked bar per crop -->

@@ -26,6 +26,14 @@ export default {
       type: Array,
       required: true
     },
+    xLabel: {
+      type: String,
+      required: false
+    },
+    yLabel: {
+      type: String,
+      required: false
+    },    
     options: {
       type: Object,
       required: false
@@ -34,7 +42,25 @@ export default {
   mounted() {
     var ctx = document.getElementById(this.id)
     const kickOut = ['ALOP', 'FETPinf', 'IRP_HE', "METPinf", 'HTPinf', 'MDP', 'NLTP', 'ODPinf', 'POFP', 'ULOP', 'WDP', 'TETPinf']
-
+    const labelConfig = {
+      scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: this.yLabel ? true : false,
+            labelString: this.yLabel 
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: this.xLabel ? true : false,
+            labelString: this.xLabel 
+          }
+        }]
+      }
+    }
+    if (this.options) {
+      this.options = _.merge(this.options, labelConfig)
+    }
     var filtered = this.data.filter(d => kickOut.indexOf(d[0]) > -1 ? false : true)
     var data = filtered.map(d => d[1])
     var labels = filtered.map(d => helpers.format(d[0]))
