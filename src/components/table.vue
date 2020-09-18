@@ -55,10 +55,10 @@ export default {
   computed: {
     filteredData() {
       return this.data.filter(r => {
-        const ignore = ['bullsKept']
+        const ignore = ['bullsKept','oldCows']
         if (ignore.indexOf(r[0]) === -1) {
           return r
-        } 
+        }
       })
     }
   },

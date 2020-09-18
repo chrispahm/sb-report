@@ -40,7 +40,7 @@ export default {
     let data = this.chartData
     if (data[0].length > 3) data = this.rework(data)
     var ctx = document.getElementById(this.id)
-    
+
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -53,14 +53,14 @@ export default {
             stacked: true,
             scaleLabel: {
               display: this.xLabel ? true : false,
-              labelString: this.xLabel 
+              labelString: this.xLabel
             }
           }],
           yAxes: [{
             stacked: true,
             scaleLabel: {
               display: this.yLabel ? true : false,
-              labelString: this.yLabel 
+              labelString: this.yLabel
             }
           }]
         },
@@ -83,22 +83,23 @@ export default {
     correctTitle() {
       const herd = this.id
       const split = herd.split('_')
+      console.log(split)
       // without price
-      if (split.length === 6 || split.length === 7) {
-        let breed = split[0]
+      if (split.length === 7 || split.length === 8) {
+        let breed = split[1]
         if (breed === 'SalChar') breed = 'Saler x Charolais'
         if (breed === 'AngXLim') breed = 'Angus x Limousin'
         if (breed === 'SalXAng') breed = 'Saler x Angus'
         if (breed === 'BBB') breed = 'Belgian Blue'
         let sex = 'bulls'
-        if (split[1] === 'f') sex = 'heifers'
-        let weightGain = _.round((Number(split[4]) - Number(split[3])) / split[5],1)
-        this.feedTitle = `Feed ${breed}, ${sex}, from ${split[3]} kg to ${split[4]} kg, ${weightGain} kg daily weight gain`
-      } else if (herd === 'motherCow') {
+        if (split[2] === 'f') sex = 'heifers'
+        let weightGain = _.round((Number(split[5]) - Number(split[4])) / split[6],1)
+        this.feedTitle = `Feed ${breed}, ${sex}, from ${split[4]} kg to ${split[5]} kg, ${weightGain} kg daily weight gain`
+      } else if (split[1] == 'motherCow') {
         this.feedTitle = 'Feed mother cows'
-      } else if (herd === 'mCalvsRais') {
+      } else if (split[1] == 'mCalvsRais') {
         this.feedTitle = 'Feed male calves raised'
-      } else if (herd === 'fCalvsRais') {
+      } else if (split[1] == 'fCalvsRais') {
         this.feedTitle = 'Feed female calves raised'
       }
       // console.log(split);
@@ -108,7 +109,7 @@ export default {
       let labels = _.uniq(data.map(d => d[0]))
       if (helpers.shortMonths().indexOf(labels[0]) > -1) {
         labels = _.sortBy(labels, [o => helpers.shortMonths().indexOf(o.toUpperCase())])
-      } 
+      }
       this.labels = labels
       return labels
     },
@@ -119,7 +120,7 @@ export default {
         return {
           label: helpers.format(stack),
           data: this.labels.map(d => {
-            const find = _.find(data, a => 
+            const find = _.find(data, a =>
               a[0].toUpperCase() === d.toUpperCase() && a[1] === stack)
             return find ? find[2] : 0
           }),

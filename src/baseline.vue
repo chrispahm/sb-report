@@ -19,11 +19,11 @@
       <!-- Cropshares -->
       <pie class="column is-half" id="Baseline_cropShares" title="Crop Shares" :data="cropHa"></pie>
       <!-- Crop production -->
-      <stackedbar class="column is-half" id="Baseline_dmProd" title="Total Fresh Matter Production" yLabel="t FM/a" :chartData="dryMatter"></stackedbar>
+      <stackedbar class="column is-half" id="Baseline_dmProd" title="Total Fresh Matter Production" yLabel="t FM" :chartData="dryMatter"></stackedbar>
       <!-- Fertilisation table, stacked bar per crop -->
-      <stackedbar class="column is-half" id="Baseline_cropFertN" title="N-Fertilisation per Crop" :chartData="n"></stackedbar>
+      <stackedbar class="column is-half" id="Baseline_cropFertN" title="N-Fertilisation per Crop" yLabel="kg N/ha" :chartData="n"></stackedbar>
       <!-- Fertilisation table, stacked bar per crop -->
-      <stackedbar class="column is-half" id="Baseline_cropFertP" title="P-Fertilisation per Crop" :chartData="P"></stackedbar>
+      <stackedbar class="column is-half" id="Baseline_cropFertP" title="P-Fertilisation per Crop" yLabel="kg P₂O₅/ha":chartData="P"></stackedbar>
       <!-- Sum Herds, tabelle -->
       <fdtable class="column is-half" id="Baseline_Herdsize" :title="'Herd structure of farm ' + gdxData.name" :round="0" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
       <!-- LU, tabelle-->
@@ -32,7 +32,7 @@
       <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
       <!-- Input quant, tabelle-->
       <fdtable class="column is-half" title="Bought Input Quantity" :data="inputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
-    </div>  
+    </div>
     <div class="break"></div>
     <div class="summary-box has-text-white" id="economics_box">
       <h3 class="title is-3 has-text-white">Economic indicator</h3>
