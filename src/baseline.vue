@@ -23,11 +23,47 @@
       <!-- Fertilisation table, stacked bar per crop -->
       <stackedbar class="column is-half" id="Baseline_cropFertN" title="N-Fertilisation per Crop" yLabel="kg N/ha" :chartData="n"></stackedbar>
       <!-- Fertilisation table, stacked bar per crop -->
-      <stackedbar class="column is-half" id="Baseline_cropFertP" title="P-Fertilisation per Crop" yLabel="kg P₂O₅/ha":chartData="P"></stackedbar>
+      <stackedbar class="column is-half" id="Baseline_cropFertP" title="P-Fertilisation per Crop" yLabel="kg P₂O₅/ha" :chartData="P"></stackedbar>
       <!-- Sum Herds, tabelle -->
       <fdtable class="column is-half" id="Baseline_Herdsize" :title="'Herd structure of farm ' + gdxData.name" :round="0" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
       <!-- LU, tabelle-->
       <fdtable class="column is-half" title="Livestock Units" :round="0" :is-econ="false" :data="lu" :header="['Type', 'Value']"></fdtable>
+    </div>
+    <div>
+      <!-- Unit description -->
+      <h5 class="title is-5 fd-item">Units</h5>
+      <table class="table is-striped is-fullwidth">
+        <tr>
+          <th>Type of input/output</th>
+          <th>Unit</th>
+        </tr><tr>
+          <td>Feeds</td>
+          <td>ton</td>
+        </tr><tr>
+          <td>Sold meat</td>
+          <td>kg</td>
+        </tr><tr>
+          <td>Sold milk</td>
+          <td>ton</td>
+        </tr><tr>
+          <td>Lime, water, straw</td>
+          <td>ton</td>
+        </tr<tr>
+          <td>Calves bought</td>
+          <td>head</td>
+        </tr><tr>
+          <td>Fertilizers</td>
+          <td>kg</td>
+        </tr><tr>
+          <td>Diesel</td>
+          <td>liter</td>
+        </tr><tr>
+          <td>Pesticides, seeds</td>
+          <td>€</td>
+        </tr>
+      </table>
+    </div>
+    <div class="columns is-multiline">
       <!-- Output quant, tabelle-->
       <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
       <!-- Input quant, tabelle-->
@@ -42,19 +78,47 @@
       <!-- Economics, tabelle-->
       <fdtable class="column is-full" id="Baseline_economics" title="Economics Output" :is-econ="true" :data="profitFct" :header="['Description', 'Type', 'Amount [€]']"></fdtable>
       <!-- Feed, stacked bar per herd -->
-      <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" :key="herd" :id="`Baseline_${herd}`" :title="'Feed ' +  herd" :chartData="arr"></stackedbar>
+      <stackedbar class="column is-half" v-for="(arr, herd) in feedHerdsByMonth" yLabel="kg DM/head/day" :key="herd" :id="`Baseline_${herd}`" :title="'Feed ' +  herd" :chartData="arr"></stackedbar>
       <div class="break"></div>
       <!-- Autonomy parameters - radial gauge-->
       <radial class="column is-half" id="Baseline_autoSharePrem" title="Share Premium on Revenues" :data="autoSharePrem"></radial>
       <radial class="column is-half" id="Baseline_autoShareInput" title="Share Input Costs on Variable Costs" :data="autoShareInput"></radial>
-      <bar class="column is-half" id="Baseline_wageHour" title="Hourly Wage" :data="labProfit"></bar>
+      <bar class="column is-half" id="Baseline_wageHour" title="Hourly Wage" yLabel="€/h" :data="labProfit"></bar>
     </div>
     <div class="break"></div>
     <div class="summary-box has-text-white" id="Baseline_environmental_box">
       <h3 class="title is-3 has-text-white">Environmental indicator</h3>
       <p>{{enviSummary}}</p>
     </div>
-    <div class="columns is-multiline">
+    <!-- Unit description -->
+    <div>
+      <h5 class="title is-5 fd-item">Units</h5>
+      <table class="table is-striped is-fullwidth">
+        <tr>
+          <th>Indicator</th>
+          <th>Unit</th>
+        </tr><tr>
+          <td>Global warming potential</td>
+          <td>kg CO₂-eq/kg carc.</td>
+        </tr><tr>
+          <td>Fossil fuel depletion</td>
+          <td>kg Oil-eq/kg carc.</td>
+        </tr><tr>
+          <td>Fresh water eutrophications</td>
+          <td>kg PO₄-eq/kg carc.</td>
+        </tr><tr>
+          <td>Marine eutrophications</td>
+          <td>kg N-eq/kg carc.</td>
+        </tr><tr>
+          <td>particulate matter formation potential</td>
+          <td>kg PM₁₀-eq/kg carc.</td>
+        </tr><tr>
+          <td>Terrestrial acidification</td>
+          <td>kg SO₂-eq/kg carc.</td>
+        </tr>
+      </table>
+      </div>
+      <div class="columns is-multiline">
       <!-- Environment, bar -->
       <bar class="column is-half" id="Baseline_environmentalBarTotal" title="Environmental Indicators Total" :data="enviTot" :options="enviOptions"></bar>
       <bar v-if="enviBal.length" bar class="column is-half" id="Baseline_environmentalBarBalance" title="Environmental Indicators Balance" :data="enviBal" :options="enviOptions"></bar>
@@ -71,7 +135,7 @@
     </div>
     <div class="columns is-multiline">
       <!-- Social - stacked lines -->
-      <stackedlines class="column is-full" id="Baseline_workHour" title="Work Hours Distribution Monthly" :data="work"></stackedlines>
+      <stackedlines class="column is-full" id="Baseline_workHour" title="Work Hours Distribution Monthly" yLabel="hours/month" :data="work"></stackedlines>
       <fdtable class="column is-half" id="Baseline_workHoursum" title="Work Hours total" :data="work1"></fdtable>
       <!-- Calories - bar -->
       <fdtable class="column is-half" id="Baseline_calorie" title="Calorie and protein effciency of cattle branch" :data="calorie"></fdtable>

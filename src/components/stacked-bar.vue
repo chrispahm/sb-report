@@ -38,7 +38,11 @@ export default {
   mounted() {
     if (this.id.includes('_f') || this.id.includes('_m') || this.id === 'motherCow' || this.id === 'mCalvsRais' || this.id === 'fCalvsRais') this.correctTitle()
     let data = this.chartData
+    if (data[0].length == 2) console.log("data")
+    if (data[0].length == 2) console.log(data)
+    console.log(data[0].length)
     if (data[0].length > 3) data = this.rework(data)
+    // if (data[0].length == 2) data = this.reworkEnv(data)
     var ctx = document.getElementById(this.id)
 
     var myChart = new Chart(ctx, {
@@ -83,7 +87,6 @@ export default {
     correctTitle() {
       const herd = this.id
       const split = herd.split('_')
-      console.log(split)
       // without price
       if (split.length === 7 || split.length === 8) {
         let breed = split[1]
@@ -91,6 +94,7 @@ export default {
         if (breed === 'AngXLim') breed = 'Angus x Limousin'
         if (breed === 'SalXAng') breed = 'Saler x Angus'
         if (breed === 'BBB') breed = 'Belgian Blue'
+        if (breed === 'Hfx bb') breed = 'Holstein x Belgian Blue'
         let sex = 'bulls'
         if (split[2] === 'f') sex = 'heifers'
         let weightGain = _.round((Number(split[5]) - Number(split[4])) / split[6],1)
@@ -134,6 +138,15 @@ export default {
     rework(data) {
       return data.map(d => [d[2],d[0],d[3]])
     }
+    // reworkEnv(data) {
+      // console.log("new Rework")
+      // return data.n
+      //console.log(data)
+      // var ones = new Array(d[0].length).fill(1);
+      // console.log(ones)
+      // return data
+      // return data.map(d => [ones,d[0],d[1]])
+    // }
   }
 }
 </script>

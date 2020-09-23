@@ -1,6 +1,7 @@
 <template>
   <div>
     <h5 v-bind:id="id + '_head'" class="title is-5 fd-item">{{ title }}</h5>
+    <p v-if="shortDescription">{{shortDescription}}</p>
     <canvas v-bind:id="id" width="300" height="300"></canvas>
   </div>
 </template>
@@ -10,7 +11,6 @@ import 'chartjs-plugin-deferred'
 import _ from 'lodash'
 import helpers from '../helpers'
 Chart.defaults.global.defaultFontFamily = "'Raleway', sans-serif"
-
 export default {
   name: "bar",
   props: {
@@ -33,10 +33,14 @@ export default {
     yLabel: {
       type: String,
       required: false
-    },    
+    },
     options: {
       type: Object,
       required: false
+    },
+    shortDescription: {
+    type: String,
+    required: false
     }
   },
   mounted() {
@@ -47,13 +51,13 @@ export default {
         yAxes: [{
           scaleLabel: {
             display: this.yLabel ? true : false,
-            labelString: this.yLabel 
+            labelString: this.yLabel
           }
         }],
         xAxes: [{
           scaleLabel: {
             display: this.xLabel ? true : false,
-            labelString: this.xLabel 
+            labelString: this.xLabel
           }
         }]
       }
