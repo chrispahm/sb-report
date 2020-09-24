@@ -53,7 +53,7 @@
             <td>ton</td>
           </tr><tr>
             <td>Sold meat</td>
-            <td>kg</td>
+            <td>kg Carc.</td>
           </tr><tr>
             <td>Sold milk</td>
             <td>ton</td>
