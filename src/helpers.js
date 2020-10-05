@@ -58,10 +58,37 @@ module.exports = {
     rgb = regExp.exec(rgb)[1]
     return `rgba(${rgb},${val})`
   },
+  addUnits(string) {
+    try{
+      if (string.includes("meat")) return string.concat(" (kg Carc.)")
+      if (string.includes("Old cow")) return string.concat(" (kg Carc.)")
+      if (string.includes("Winter")) return string.concat(" (ton)")
+      if (string.includes("Concentrate")) return string.concat(" (ton)")
+      if (string.includes("Soja")) return string.concat(" (ton)")
+      if (string.includes("beet pulp")) return string.concat(" (ton)")
+      if (string.includes("Sugarbeet")) return string.concat(" (ton)")
+      if (string.includes("Milk")) return string.concat(" (ton)")
+      if (string.includes("Diesel")) return string.concat(" (liter)")
+      if (string.includes("Seed")) return string.concat(" (€)")
+      if (string.includes("Ahl")) return string.concat(" (kg)")
+      if (string.includes("Pk")) return string.concat(" (kg)")
+      if (string.includes("Lime")) return string.concat(" (ton)")
+      if (string.includes("Herb")) return string.concat(" (€)")
+      if (string.includes("Fung")) return string.concat(" (€)")
+      if (string.includes("Insect")) return string.concat(" (€)")
+      if (string.includes("Straw")) return string.concat(" (ton)")
+      if (string.includes("Water")) return string.concat(" (ton)")
+
+      else return string
+    } catch(e) {
+      return string
+    }
+    return string
+  },
   format(string) {
     try {
       string = string.replace(/_/g, ' ')
-      
+
       // replace heifer and bulls strings
       if (string.includes(' f ') || string.includes(' m ')) {
         const split = string.split(' ')
@@ -79,9 +106,9 @@ module.exports = {
         } else {
           let weightGain = _.round((Number(split[4]) - Number(split[3])) / split[5],1)
           return `${breed}, ${sex}, from ${split[3]} kg to ${split[4]} kg, ${weightGain} kg daily weight gain`
-        }  
+        }
       }
-      
+
       string = string.replace(/([a-z0-9])([A-Z])/g, '$1 $2')
       string = string.toLowerCase()
       // make better legible gras crop labels
@@ -103,11 +130,11 @@ module.exports = {
         } else if (cuts > 1) {
           cutsText = `, ${cuts} cuts`
         }
-        
+
         if (percHay) hayText = `, ${percHay}% hay`
         if (percGraz) grazingText = `, ${percGraz}% grazing`
         console.log(grazingText);
-        
+
         string = `Gras: ${split[1]} t DM${cutsText}${grazingText}${hayText}`
         return string
       }
@@ -122,43 +149,49 @@ module.exports = {
       }
 
       if (string === 'maiz sil') return 'Maize silage'
-      
-      if (string === 'nman apl ha') return 'N from manure application (1/ha)'
-      if (string === 'ngraz ha') return 'N from grazing (1/ha)'
-      
-      if (string === 'pman apl ha') return 'P from manure application (1/ha)'
-      if (string === 'pgraz ha') return 'P from grazing (1/ha)'
-      
+
+      if (string === 'nman apl ha') return 'N from manure application'
+      if (string === 'ngraz ha') return 'N from grazing'
+
+      if (string === 'pman apl ha') return 'P from manure application'
+      if (string === 'pgraz ha') return 'P from grazing'
+
       if (string === 'm calvs rais') return 'Male calves raised'
+      if (string === 'male calvs raised') return 'Male calves raised'
       if (string === 'f calvs rais') return 'Female calves raised'
-      
+
       if (string === 'luperha') return 'Livestock units per ha'
       if (string === 'sum lu') return 'Total livestock units'
-      
+
       if (string === 'man appl') return 'Manure application'
       if (string === 'sta sto') return 'Stable and storage'
       if (string === 'past') return 'Pasture'
       if (string === 'ent ferm') return 'Enteric fermentation'
-      if (string === 'input') return 'Inputs'   
-      
-      if (string === 'conc cattle1') return 'Concentrates Type 1'      
+      if (string === 'input') return 'Inputs'
+
+      if (string === 'conc cattle1') return 'Concentrates Type 1'
       if (string === 'conc cattle2') return 'Concentrates Type 2'
       if (string === 'conc cattle3') return 'Concentrates Type 3'
       if (string === 'milk fed') return 'Milk'
-      
+
       if (string === 'sum var cost') return 'Total variable costs'
-      if (string === 'direct pay') return 'Subsidies (decoupled support)'
+      if (string === 'direct pay') return '1. Subsidies (decoupled support)'
+      if (string === 'coupled support') return '2. Coupled Support'
       if (string === 'sum buy cost') return 'Total input costs (bought)'
-      if (string === 'sum feed buy cost') return 'Total feed input costs (bought)'
-      if (string === 'buy cost') return 'Input costs (bought)'
+      if (string === 'sum feed buy cost') return '1. Total feed input costs (bought)'
+      if (string === 'fert buy cost') return '2. Total fertilizers input costs (bought)'
+      if (string === 'phytobuy cost') return '3. Total phytosanitary input costs (bought)'
+      if (string === 'buy cost') return ''
       if (string === 'build var cost') return 'Variable costs for buildings'
       if (string === 'mach var cost') return 'Variable costs for machinery'
       if (string === 'man var cost') return 'Variable costs for manure spreading'
       if (string === 'other var cost') return 'Other Variable costs'
       if (string === 'profit(euro)') return 'Profit'
+      if (string === 'revenues by beef') return ''
+      if (string === 'crop sales') return ''
 
       if (string === 'sal char') return 'Saler x Charolais'
-      
+
       if(string === 'tap') return 'Terrestrial acidification'
       if(string === 'gwp') return 'Global warming potential'
       if(string === 'mep') return 'Marine water eutrophication potential'
@@ -228,4 +261,3 @@ module.exports = {
     }
   }
 }
-

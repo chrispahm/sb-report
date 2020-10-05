@@ -74,6 +74,8 @@ export default {
         return 'inf'
       } else if (!isNaN(Number(cell)) && cell) {
         return _.round(cell,this.round).toLocaleString('en-GB')
+      } else if (!this.isEcon) {
+        return helpers.addUnits(helpers.format(cell))
       }
       return helpers.format(cell)
     }

@@ -27,41 +27,7 @@
       <!-- Sum Herds, tabelle -->
       <fdtable class="column is-half" id="Baseline_Herdsize" :title="'Herd structure of farm ' + gdxData.name" :round="0" :is-econ="false" :data="sumHerd" :header="['Herd', 'Breed', 'Count']"></fdtable>
       <!-- LU, tabelle-->
-      <fdtable class="column is-half" title="Livestock Units" :round="0" :is-econ="false" :data="lu" :header="['Type', 'Value']"></fdtable>
-    </div>
-    <div>
-      <!-- Unit description -->
-      <h5 class="title is-5 fd-item">Units</h5>
-      <table class="table is-striped is-fullwidth">
-        <tr>
-          <th>Type of input/output</th>
-          <th>Unit</th>
-        </tr><tr>
-          <td>Feeds</td>
-          <td>ton</td>
-        </tr><tr>
-          <td>Sold meat</td>
-          <td>kg Carc.</td>
-        </tr><tr>
-          <td>Sold milk</td>
-          <td>ton</td>
-        </tr><tr>
-          <td>Lime, water, straw</td>
-          <td>ton</td>
-        </tr<tr>
-          <td>Calves bought</td>
-          <td>head</td>
-        </tr><tr>
-          <td>Fertilizers</td>
-          <td>kg</td>
-        </tr><tr>
-          <td>Diesel</td>
-          <td>liter</td>
-        </tr><tr>
-          <td>Pesticides, seeds</td>
-          <td>€</td>
-        </tr>
-      </table>
+      <fdtable class="column is-half" title="Livestock Units" :round="1" :is-econ="false" :data="lu" :header="['Type', 'Value']"></fdtable>
     </div>
     <div class="columns is-multiline">
       <!-- Output quant, tabelle-->
@@ -135,7 +101,7 @@
     </div>
     <div class="columns is-multiline">
       <!-- Social - stacked lines -->
-      <stackedlines class="column is-full" id="Baseline_workHour" title="Work Hours Distribution Monthly" yLabel="hours/month" :data="work"></stackedlines>
+      <stackedlines class="column is-full" id="Baseline_workHour" title="Work Hours Distribution" yLabel="hours/month" :data="work"></stackedlines>
       <fdtable class="column is-half" id="Baseline_workHoursum" title="Work Hours total" :data="work1"></fdtable>
       <!-- Calories - bar -->
       <fdtable class="column is-half" id="Baseline_calorie" title="Calorie and protein effciency of cattle branch" :data="calorie"></fdtable>
