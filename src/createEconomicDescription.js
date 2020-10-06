@@ -16,6 +16,6 @@ module.exports = (data) => {
     Given overall variable costs of ${formatter.format(varCost)}, an average yearly farm profit of ${formatter.format(profits)} was estimated.
     Please note that profits calculated in FarmDyn may diverge from profits actually realized on the case-study farm ${caseStudy}:
     Assumptions made about work loads, storage losses, available field work hours, building costs (resulting in depreciation costs), taxation and many other parameters
-    highly influence the profitability of possible production alternatives.
+    highly influence the profitability.
     The baseline presented in this report was calibrated with respect to the herd sizes of the original case-study farm, closely resembling the ones presented in this baseline simulation report.`
 }

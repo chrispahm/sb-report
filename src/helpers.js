@@ -64,9 +64,13 @@ module.exports = {
       if (string.includes("Old cow")) return string.concat(" (kg Carc.)")
       if (string.includes("Winter")) return string.concat(" (ton)")
       if (string.includes("Concentrate")) return string.concat(" (ton)")
-      if (string.includes("Soja")) return string.concat(" (ton)")
+      if (string.includes("SoyBean")) return string.concat(" (ton)")
       if (string.includes("beet pulp")) return string.concat(" (ton)")
+      if (string.includes("Maiz")) return string.concat(" (ton)")
+      if (string.includes("Summer")) return string.concat(" (ton)")
+      if (string.includes("Hay")) return string.concat(" (ton)")
       if (string.includes("Sugarbeet")) return string.concat(" (ton)")
+      if (string.includes("Chlorella")) return string.concat(" (ton)")
       if (string.includes("Milk")) return string.concat(" (ton)")
       if (string.includes("Diesel")) return string.concat(" (liter)")
       if (string.includes("Seed")) return string.concat(" (€)")
@@ -76,9 +80,10 @@ module.exports = {
       if (string.includes("Herb")) return string.concat(" (€)")
       if (string.includes("Fung")) return string.concat(" (€)")
       if (string.includes("Insect")) return string.concat(" (€)")
+      if (string.includes("Hail")) return string.concat(" (€)")
+      if (string.includes("Growth")) return string.concat(" (€)")
       if (string.includes("Straw")) return string.concat(" (ton)")
       if (string.includes("Water")) return string.concat(" (ton)")
-
       else return string
     } catch(e) {
       return string

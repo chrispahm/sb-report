@@ -31,9 +31,9 @@
     </div>
     <div class="columns is-multiline">
       <!-- Output quant, tabelle-->
-      <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
+      <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount']"></fdtable>
       <!-- Input quant, tabelle-->
-      <fdtable class="column is-half" title="Bought Input Quantity" :data="inputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
+      <fdtable class="column is-half" title="Bought Input Quantity" :data="inputQuant" :header="['Type', 'Amount']"></fdtable>
     </div>
     <div class="break"></div>
     <div class="summary-box has-text-white" id="economics_box">
@@ -88,11 +88,11 @@
       <!-- Environment, bar -->
       <bar class="column is-half" id="Baseline_environmentalBarTotal" title="Environmental Indicators Total" :data="enviTot" :options="enviOptions"></bar>
       <bar v-if="enviBal.length" bar class="column is-half" id="Baseline_environmentalBarBalance" title="Environmental Indicators Balance" :data="enviBal" :options="enviOptions"></bar>
-      <pie class="column is-half" id="Baseline_GWP" title="Source contribution global warming potential" :data="GWP"></pie>
-      <pie class="column is-half" id="Baseline_PMFP" title="Source contribution particulate matter formation potential" :data="PMFP"></pie>
-      <pie class="column is-half" id="Baseline_TAP" title="Source contribution terrestrial acidification" :data="TAP"></pie>
-      <pie class="column is-half" id="Baseline_FEP" title="Source contribution freshwater eutrophication potential" :data="FEP"></pie>
-      <pie class="column is-half" id="Baseline_MEP" title="Source contribution marine water eutrophication potential" :data="MEP"></pie>
+      <pie class="column is-half" id="Baseline_GWP" title="Detailed contribution to global warming potential" :data="GWP"></pie>
+      <pie class="column is-half" id="Baseline_PMFP" title="Detailed contribution to particulate matter formation potential" :data="PMFP"></pie>
+      <pie class="column is-half" id="Baseline_TAP" title="Detailed contribution to terrestrial acidification" :data="TAP"></pie>
+      <pie class="column is-half" id="Baseline_FEP" title="Detailed contribution to freshwater eutrophication potential" :data="FEP"></pie>
+      <pie class="column is-half" id="Baseline_MEP" title="Detailed contribution to marine water eutrophication potential" :data="MEP"></pie>
     </div>
     <div class="break"></div>
     <div class="summary-box has-text-white" id="Baseline_social_box">
@@ -104,7 +104,7 @@
       <stackedlines class="column is-full" id="Baseline_workHour" title="Work Hours Distribution" yLabel="hours/month" :data="work"></stackedlines>
       <fdtable class="column is-half" id="Baseline_workHoursum" title="Work Hours total" :data="work1"></fdtable>
       <!-- Calories - bar -->
-      <fdtable class="column is-half" id="Baseline_calorie" title="Calorie and protein effciency of cattle branch" :data="calorie"></fdtable>
+      <fdtable class="column is-half" id="Baseline_calorie" title="Calorie and protein net effciency of cattle branch" :data="calorie"></fdtable>
     </div>
   </div>
 </template>

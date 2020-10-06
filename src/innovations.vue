@@ -41,45 +41,11 @@
       <!-- LU, tabelle-->
       <fdtable class="column is-half" title="Livestock Units" :is-econ="false" :round="0" :data="lu" :header="['Type', 'Value']"></fdtable>
       </div>
-      <div>
-        <!-- Unit description -->
-        <h5 class="title is-5 fd-item">Units</h5>
-        <table class="table is-striped is-fullwidth">
-          <tr>
-            <th>Type of input/output</th>
-            <th>Unit</th>
-          </tr><tr>
-            <td>Feeds</td>
-            <td>ton</td>
-          </tr><tr>
-            <td>Sold meat</td>
-            <td>kg Carc.</td>
-          </tr><tr>
-            <td>Sold milk</td>
-            <td>ton</td>
-          </tr><tr>
-            <td>Lime, water, straw</td>
-            <td>ton</td>
-          </tr<tr>
-            <td>Calves bought</td>
-            <td>head</td>
-          </tr><tr>
-            <td>Fertilizers</td>
-            <td>kg</td>
-          </tr><tr>
-            <td>Diesel</td>
-            <td>liter</td>
-          </tr><tr>
-            <td>Pesticides, seeds</td>
-            <td>€</td>
-          </tr>
-        </table>
-      </div>
       <div class="columns is-multiline">
       <!-- Output quant, tabelle-->
-      <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
+      <fdtable class="column is-half" title="Sold Output Quantity" :data="soldOutputQuant" :header="['Type', 'Amount']"></fdtable>
       <!-- Input quant, tabelle-->
-      <fdtable class="column is-half" title="Bought Input Quantity" :data="inputQuant" :header="['Type', 'Amount\n[kg, t or Number]']"></fdtable>
+      <fdtable class="column is-half" title="Bought Input Quantity" :data="inputQuant" :header="['Type', 'Amount']"></fdtable>
     </div>
     <div class="break"></div>
     <div class="summary-box has-text-white" :id="`${gdxData.scenario}_economics_box`">
@@ -134,11 +100,11 @@
       <!-- Environment, bar -->
       <bar class="column is-half" :id="`${gdxData.scenario}_environmentalBarTotal`" title="Environmental Indicators Total" :data="enviTot" :options="enviOptions"></bar>
       <bar v-if="enviBal.length" bar class="column is-half" :id="`${gdxData.scenario}_environmentalBarBalance`" title="Environmental Indicators Balance" :data="enviBal" :options="enviOptions"></bar>
-      <pie class="column is-half" :id="`${gdxData.scenario}_GWP`" title="Source contribution global warming potential" :data="GWP"></pie>
-      <pie class="column is-half" :id="`${gdxData.scenario}_PMFP`" title="Source contribution particulate matter formation potential" :data="PMFP"></pie>
-      <pie class="column is-half" :id="`${gdxData.scenario}_TAP`" title="Source contribution terrestrial acidification" :data="TAP"></pie>
-      <pie class="column is-half" :id="`${gdxData.scenario}_FEP`" title="Source contribution freshwater eutrophication potential" :data="FEP"></pie>
-      <pie class="column is-half" :id="`${gdxData.scenario}_MEP`" title="Source contribution marine water eutrophication potential" :data="MEP"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_GWP`" title="Detailed contribution to global warming potential" :data="GWP"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_PMFP`" title="Detailed contribution to particulate matter formation potential" :data="PMFP"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_TAP`" title="Detailed contribution to terrestrial acidification" :data="TAP"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_FEP`" title="Detailed contribution to freshwater eutrophication potential" :data="FEP"></pie>
+      <pie class="column is-half" :id="`${gdxData.scenario}_MEP`" title="Detailed contribution to marine water eutrophication potential" :data="MEP"></pie>
     </div>
     <div class="break"></div>
     <div class="summary-box has-text-white" :id="`${gdxData.scenario}_social_box`">
@@ -150,7 +116,7 @@
       <stackedlines class="column is-full" :id="`${gdxData.scenario}_workHour`" title="Work Hours Distribution Monthly" yLabel="hours/month" :data="work"></stackedlines>
       <fdtable class="column is-half" :id="`${gdxData.scenario}_workHoursum`" title="Work Hours total" :data="work1"></fdtable>
       <!-- Calories - bar -->
-      <fdtable class="column is-half" :id="`${gdxData.scenario}_calorie`" title="Calorie and protein effciency of cattle branch" :data="calorie"></fdtable>
+      <fdtable class="column is-half" :id="`${gdxData.scenario}_calorie`" title="Calorie and protein net effciency of cattle branch" :data="calorie"></fdtable>
     </div>
   </div>
 </template>

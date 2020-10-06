@@ -10,7 +10,7 @@ module.exports = {
   },
   closingStatement(data) {
     const rand = Math.random()
-    
+
     if (rand < 0.33) {
       let share = 'only a small share of ' + Math.round(data.autoShareInput * 100) + '%'
       if (data.autoShareInput > 0.2) share = 'a quarter of the share'
@@ -33,14 +33,14 @@ module.exports = {
     const silage = crops.filter(c => c[0].includes('sil'))
     const hay = crops.filter(c => c[0].includes('hay'))
     const grazing = crops.filter(c => c[0].includes('graz'))
-    
+
     const hasArab = arabCrops.length ? true : false
     const mainProduce = this.getCropsName(crops[0][0])
-    
+
     const rand = Math.random()
     let text = ''
     if (rand < 0.5) {
-      text += `Mainly ${mainProduce} is produced on an area of ${Math.round(crops[0][1])}ha. `  
+      text += `Mainly ${mainProduce} is produced on an area of ${Math.round(crops[0][1])}ha. `
       if (!hasArab) text += 'The farm does not produce any arable crops. '
       if (!grasCrops.length) text += 'The farm is not endowed with grassland that could be valorized by the herd. '
     } else {
@@ -64,7 +64,7 @@ module.exports = {
     const sumLU = lu.find(l => l[0] === 'sumLU')[1].toFixed(0)
     const countryAvg = this.lusPerCountry(country)
     const direction = (countryAvg - LUperha) > 0 ? 'below' : 'above'
-    let deviation = 'equal to'
+    let deviation = 'similar to'
     if (Math.abs(countryAvg - LUperha) > 0.1) deviation = 'slightly ' + direction
     if (Math.abs(countryAvg - LUperha) > 0.3) deviation = direction
     if (Math.abs(countryAvg - LUperha) > 0.6) deviation = 'well ' + direction
@@ -81,7 +81,7 @@ module.exports = {
       IE: 1.3,
       DE: 1.1,
       FR: 0.8,
-      BE: 2.8,
+      BE: 1.35,
       IT: 0.8
     }
     return countries[country]
@@ -93,7 +93,7 @@ module.exports = {
       MontCha: 'Montbeliarde x Charolais',
       CrossBulls: ''
     }
-    
+
     const baseHerds = sumHerd.filter(h => relevant.includes(h[0]) && !(h[1] in breedsMapping))
     const crossHerds = sumHerd.filter(h => relevant.includes(h[0]) && (h[1] in breedsMapping))
     // check if duplicate bulls exist
@@ -102,18 +102,18 @@ module.exports = {
       cows: 'cows',
       bullsSold: 'bulls'
     }
-    
+
 
     let herdText = ''
-    
+
     if (baseHerds.length === 3) {
       herdText += `${Math.round(baseHerds[0][2])} ${names[baseHerds[0][0]]}, ${Math.round(baseHerds[1][2])} ${names[baseHerds[1][0]]}, and ${Math.round(baseHerds[2][2])} ${names[baseHerds[2][0]]}. `
     } else if (baseHerds.length === 2) {
       herdText += `${Math.round(baseHerds[0][2])} ${names[baseHerds[0][0]]}, and ${Math.round(baseHerds[1][2])} ${names[baseHerds[1][0]]}. `
     } else if (baseHerds.length === 1) {
       herdText += `${Math.round(baseHerds[0][2])} ${names[baseHerds[0][0]]}. `
-    } 
-    
+    }
+
     if (crossHerds.length && herdText) {
       herdText += `In addition, ${Math.round(crossHerds[0][2])} crossbred ${breedsMapping[crossHerds[0][1]]} ${names[crossHerds[0][0]]} were sold annually. `
     } else if (crossHerds.length) {
