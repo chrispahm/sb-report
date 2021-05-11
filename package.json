@@ -27,7 +27,7 @@
     "gradstop": "^2.2.3",
     "html-webpack-inline-source-plugin": "0.0.10",
     "html-webpack-plugin": "^3.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "markdown-table": "^2.0.0",
     "node-gdx": "^1.0.4",
     "patternomaly": "^1.3.2",
